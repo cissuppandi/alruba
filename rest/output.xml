@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180910 19:30:38.537" generator="Robot 3.0.2 (Python 2.7.12 on win32)">
+<suite source="F:\Automation\Automation\src\rest\Rest_POST_Method.txt" id="s1" name="Rest POST Method">
+<test id="s1-t1" name="TC REST 01: Testing REST URI For Base URI">
+<kw name="Create Post Session" library="Keywords">
+<doc>Creating a Session for Post Method</doc>
+<msg timestamp="20180910 19:30:38.605" level="TRACE">Arguments: [  ]</msg>
+<kw name="Create Session">
+<arguments>
+<arg>${rest_uri_sessions}</arg>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${res} =</var>
+</assign>
+<msg timestamp="20180910 19:30:38.606" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<status status="FAIL" endtime="20180910 19:30:38.606" starttime="20180910 19:30:38.606"></status>
+</kw>
+<status status="FAIL" endtime="20180910 19:30:38.606" starttime="20180910 19:30:38.604"></status>
+</kw>
+<doc>Try outs</doc>
+<tags>
+<tag>Anisha</tag>
+<tag>Base</tag>
+<tag>Full</tag>
+<tag>REST</tag>
+<tag>SmokeTest</tag>
+</tags>
+<status status="FAIL" endtime="20180910 19:30:38.610" critical="yes" starttime="20180910 19:30:38.601">No keyword with name 'Create Session' found.</status>
+</test>
+<status status="FAIL" endtime="20180910 19:30:38.613" starttime="20180910 19:30:38.539"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+<stat fail="1" pass="0">Anisha</stat>
+<stat fail="1" pass="0">Base</stat>
+<stat fail="1" pass="0">Full</stat>
+<stat fail="1" pass="0">REST</stat>
+<stat fail="1" pass="0">SmokeTest</stat>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="Rest POST Method" pass="0">Rest POST Method</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20180910 19:30:38.559" level="ERROR">Error in file 'F:\Automation\Automation\src\rest\Rest_POST_Method.txt': Importing test library 'RestAPILibrary' failed: IndentationError: unexpected indent (RestAPILibrary.py, line 64)
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Python27
+  C:\WINDOWS\SYSTEM32\python27.zip
+  C:\Python27\DLLs
+  C:\Python27\lib
+  C:\Python27\lib\plat-win
+  C:\Python27\lib\lib-tk
+  C:\Python27\lib\site-packages</msg>
+</errors>
+</robot>

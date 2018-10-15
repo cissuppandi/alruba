@@ -1,0 +1,115 @@
+*** Settings ***
+Library           String
+Library           OperatingSystem
+
+*** Variables ***
+
+${CURR_TEST_VERSION}	2.3.5
+${BASE_OID}				1.3.6.1.4.1.19536.
+${OID_TABLE}			10.
+
+
+#####################
+#  MIB Definitions  #
+#####################
+
+#  PDU Identification Table  #
+
+${pdug5IdentIndex}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.1.1
+${pdug5Name}						${BASE_OID} + ${OID_TABLE} + 1.1.2.1.2.1
+${pdug5Model}						${BASE_OID} + ${OID_TABLE} + 1.1.2.1.3.1
+${pdug5Manufacturer}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.4.1
+${pdug5FirmwareVersion}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.5.1
+${pdug5FirmwareVersionTimeStamp}	${BASE_OID} + ${OID_TABLE} + 1.1.2.1.6.1
+${pdug5PartNumber}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.7.1
+${pdug5SerialNumber}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.8.1
+${pdug5Status}						${BASE_OID} + ${OID_TABLE} + 1.1.2.1.9.1
+${pdug5Controllable}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.10.1
+${pdug5InputPhaseCount}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.11.1
+${pdug5GroupCount}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.12.1
+${pdug5OutletCount}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.13.1
+${pdug5MACAddress}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.14.1
+${pdug5IPv4Address}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.15.1
+${pdug5IPv6Address}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.16.1
+
+#  PDU Config Table  #
+
+${pdug5ConfigSNMP}							${BASE_OID} + ${OID_TABLE} + 1.1.3.1.2.1
+${pdug5ConfigFtps}							${BASE_OID} + ${OID_TABLE} + 1.1.3.1.3.1
+${pdug5ConfigHttp}							${BASE_OID} + ${OID_TABLE} + 1.1.3.1.4.1
+${pdug5ConfigHttps}							${BASE_OID} + ${OID_TABLE} + 1.1.3.1.5.1
+${pdug5ConfigIPv4IPv6Switch}				${BASE_OID} + ${OID_TABLE} + 1.1.3.1.6.1
+${pdug5ConfigRedfishAPI}					${BASE_OID} + ${OID_TABLE} + 1.1.3.1.7.1
+${pdug5ConfigOledDispalyOrientation}		${BASE_OID} + ${OID_TABLE} + 1.1.3.1.8.1
+${pdug5ConfigEnergyReset}					${BASE_OID} + ${OID_TABLE} + 1.1.3.1.9.1
+${pdug5ConfigNetworkManagementCardReset}	${BASE_OID} + ${OID_TABLE} + 1.1.3.1.10.1
+${pdug5ConfigDaisyChainStatus}				${BASE_OID} + ${OID_TABLE} + 1.1.3.1.11.1
+
+
+#  PDU Input Table  #
+
+${pdug5InputType}					${BASE_OID} + ${OID_TABLE} + 1.2.1.1.1.1
+${pdug5InputFrequency}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.2.1
+${pdug5InputFrequencyStatus}		${BASE_OID} + ${OID_TABLE} + 1.2.1.1.3.1
+${pdug5InputPowerVA}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.4.1
+${pdug5InputPowerWatts}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.5.1
+${pdug5InputTotalEnergy}			${BASE_OID} + ${OID_TABLE} + 1.2.1.1.6.1
+${pdug5InputPowerWattHourTimer}		${BASE_OID} + ${OID_TABLE} + 1.2.1.1.7.1
+${pdug5InputResettableEnergy}		${BASE_OID} + ${OID_TABLE} + 1.2.1.1.8.1
+${pdug5InputPowerFactor}			${BASE_OID} + ${OID_TABLE} + 1.2.1.1.9.1
+${pdug5InputPowerVAR}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.10.1
+${pdug5InputTotalCurrent}			${BASE_OID} + ${OID_TABLE} + 1.2.1.1.11.1
+
+#  PDU Input Phase Table  #
+
+${pdug5InputPhaseIndex.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.1.1.1
+${pdug5InputPhaseIndex.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.1.1.2
+${pdug5InputPhaseIndex.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.1.1.3
+
+${pdug5InputPhaseVoltageMeasType.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.2.1.1
+${pdug5InputPhaseVoltageMeasType.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.2.1.2
+${pdug5InputPhaseVoltageMeasType.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.2.1.3
+
+${pdug5InputPhaseVoltage.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.3.1.1
+${pdug5InputPhaseVoltage.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.3.1.2
+${pdug5InputPhaseVoltage.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.3.1.3
+
+${pdug5InputPhaseVoltageThStatus.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.4.1.1
+${pdug5InputPhaseVoltageThStatus.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.4.1.2
+${pdug5InputPhaseVoltageThStatus.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.4.1.3
+
+${pdug5InputPhaseVoltageThStatus.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.4.1.1
+${pdug5InputPhaseVoltageThStatus.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.4.1.2
+${pdug5InputPhaseVoltageThStatus.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.4.1.3
+
+${pdug5InputPhaseVoltageThLowerWarning.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.5.1.1
+${pdug5InputPhaseVoltageThLowerWarning.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.5.1.2
+${pdug5InputPhaseVoltageThLowerWarning.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.5.1.3
+
+${pdug5InputPhaseVoltageThLowerCritical.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.6.1.1
+${pdug5InputPhaseVoltageThLowerCritical.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.6.1.2
+${pdug5InputPhaseVoltageThLowerCritical.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.6.1.3
+
+${pdug5InputPhaseVoltageThUpperWarning.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.7.1.1
+${pdug5InputPhaseVoltageThUpperWarning.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.7.1.2
+${pdug5InputPhaseVoltageThUpperWarning.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.7.1.3
+
+${pdug5InputPhaseVoltageThUpperCritical.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.8.1.1
+${pdug5InputPhaseVoltageThUpperCritical.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.8.1.2
+${pdug5InputPhaseVoltageThUpperCritical.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.8.1.3
+
+${pdug5InputPhaseCurrentMeasType.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.9.1.1
+${pdug5InputPhaseCurrentMeasType.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.9.1.2
+${pdug5InputPhaseCurrentMeasType.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.9.1.3
+
+${pdug5InputPhaseCurrentRating.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.10.1.1
+${pdug5InputPhaseCurrentRating.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.10.1.2
+${pdug5InputPhaseCurrentRating.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.10.1.3
+
+${pdug5InputPhaseCurrent.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.11.1.1
+${pdug5InputPhaseCurrent.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.11.1.2
+${pdug5InputPhaseCurrent.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.11.1.3
+
+${pdug5InputPhaseCurrentThStatus.1.1}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.12.1.1
+${pdug5InputPhaseCurrentThStatus.1.2}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.12.1.2
+${pdug5InputPhaseCurrentThStatus.1.3}					${BASE_OID} + ${OID_TABLE} + 1.2.2.1.12.1.3

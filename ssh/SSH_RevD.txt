@@ -1,0 +1,17 @@
+*** Settings ***
+Library    MyLibrary
+
+*** Variables ***
+${HOST}                192.168.1.73
+${USERNAME}            admin
+${PASSWORD}            1234567!
+${cmd_prompt}		   PANDUIT>
+${sys_ver}             net tcpip
+
+*** Test Cases ***
+TC SSH 01: Testing SSH Connection Using Class
+    [Documentation]    Try outs
+    Log    "Testing Try Outs"
+    Do Nothing
+    ${res}=    Hello    ${sys_ver}
+    Log    ${res}

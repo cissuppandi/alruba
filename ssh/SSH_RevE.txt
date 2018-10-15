@@ -1,0 +1,68 @@
+*** Settings ***
+Library    SSHMyLibrary
+
+Resource     Resource.txt
+Resource     Keywords.txt
+
+*** Variables ***
+${tmp}      "Firmware   Version : " 
+
+*** Test Cases ***
+TC SSH 01: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${SYS_VER}
+    Log    ${response}
+    
+    ${data} =    Fetch From Right    ${response}    SUCCESS
+    ${ver} =    Fetch From Left    ${data}    Bootloader
+    ${num} =    Fetch From Right    ${ver}    Version
+    ${version} =    Fetch From Right    ${num}    :
+    ${final} =    Fetch From Left    ${version}    HPE
+    Log    ${ver}
+    Log    ${num}
+    Log    ${version}
+    Log    ${final}
+    Should Be Equal    ${final}    ${CURR_TEST_VERSION}
+
+TC SSH 02: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${SYS_DATE}
+    Log    ${response}
+    
+TC SSH 03: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${SYS_TIME}
+    Log    ${response}
+    
+TC SSH 04: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${SYS_NTP}
+    Log    ${response}
+    
+TC SSH 05: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${NET_TCPIP}
+    Log    ${response}
+    
+TC SSH 06: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${NET_MAC}
+    Log    ${response}
+    
+TC SSH 07: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${USR}
+    Log    ${response}
+    
+TC SSH 08: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys
+    [Tags]    SSH    SYS    SmokeTest    JJ
+    ${response} =    Execute SSH Command    ${USR_LIST}
+    Log    ${response}

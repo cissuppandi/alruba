@@ -1,0 +1,31 @@
+*** Settings ***
+Library           String
+Library           OperatingSystem
+
+*** Variables ***
+
+*** Keywords ***
+
+Get REST Method
+    [Documentation]    Fetch REST GET Method
+    [Arguments]    ${uri}
+    ${res} =    Restapi Get Method    ${uri}     ${USERNAME}     ${PASSWORD}
+    [return]  ${res}
+    
+Post REST Method
+    [Documentation]    REST Post Method
+    [Arguments]    ${uri}
+	${res} =    Restapi Post Method    ${uri}     ${USERNAME}     ${PASSWORD}
+    [return]  ${res}
+	
+Create Post Session
+    [Documentation]    Creating a Session for Post Method
+	#${body}=    Json Body    ${USERNAME}     ${PASSWORD}
+	${res} =    Create Session   ${rest_uri_sessions}     ${USERNAME}     ${PASSWORD}    ${body}
+	Log    $[res}
+    
+Execute SSH Command
+    [Documentation]    Execute SSH command in the PDU
+    [Arguments]    ${command}
+    ${res}=    Run Ssh Command    ${command}    ${HOST}    ${USERNAME}     ${PASSWORD}    ${cmd_prompt_PAN}
+    [return]  ${res}

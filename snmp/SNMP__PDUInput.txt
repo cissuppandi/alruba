@@ -1,0 +1,88 @@
+*** Settings ***
+#Library    SNMPLibrary
+Library    snmplib
+
+Resource     Resource.txt
+Resource     Keywords.txt
+
+*** Variables ***
+${local_host}						192.168.0.8
+${pdug5InputType}					${BASE_OID} + ${OID_TABLE} + 1.2.1.1.1.1
+${pdug5InputFrequency}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.2.1
+${pdug5InputFrequencyStatus}		${BASE_OID} + ${OID_TABLE} + 1.2.1.1.3.1
+${pdug5InputPowerVA}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.4.1
+${pdug5InputPowerWatts}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.5.1
+${pdug5InputTotalEnergy}			${BASE_OID} + ${OID_TABLE} + 1.2.1.1.6.1
+${pdug5InputPowerWattHourTimer}		${BASE_OID} + ${OID_TABLE} + 1.2.1.1.7.1
+${pdug5InputResettableEnergy}		${BASE_OID} + ${OID_TABLE} + 1.2.1.1.8.1
+${pdug5InputPowerFactor}			${BASE_OID} + ${OID_TABLE} + 1.2.1.1.9.1
+${pdug5InputPowerVAR}				${BASE_OID} + ${OID_TABLE} + 1.2.1.1.10.1
+${pdug5InputTotalCurrent}			${BASE_OID} + ${OID_TABLE} + 1.2.1.1.11.1
+
+
+*** Test Cases ***
+TC SNMP 01: Verify PDU pdug5InputType
+    [Documentation]    Test to verify SNMP Get for PDU Input Type
+    [Tags]    SNMP    SYS    SmokeTest    Anisha
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputType}
+    Log    ${result}
+    
+    
+TC SNMP 02: Verify PDU pdug5InputFrequency
+    [Documentation]    Test to verify SNMP Get for PDU Input Frequency
+    [Tags]    SNMP    SYS    SmokeTest 
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputFrequency}
+    Log    ${result}
+
+TC SNMP 03: Verify PDU pdug5InputFrequencyStatus
+    [Documentation]    Test to verify SNMP Get for PDU Input Frequency Status
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputFrequencyStatus}
+    Log    ${result}
+        
+TC SNMP 04: Verify PDU pdug5InputPowerVA
+    [Documentation]    Test to verify SNMP Get for PDU Input Power VA
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputPowerVA}
+    Log    ${result}
+    
+TC SNMP 05: Verify PDU pdug5InputPowerWatts
+    [Documentation]    Test to verify SNMP Get for PDU Input Power Watts
+    [Tags]    SNMP    SYS    SmokeTest 
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputPowerWatts}
+
+TC SNMP 06: Verify PDU pdug5InputTotalEnergy
+    [Documentation]    Test to verify SNMP Get for PDU Input Total Energy
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputTotalEnergy}
+    Log    ${result}
+    
+TC SNMP 07: Verify PDU pdug5InputPowerWattHourTimer
+    [Documentation]    Test to verify SNMP Get for PDU Input Power Watt Hour Timer
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5InputPowerWattHourTimer}
+    Log    ${result} 
+    
+TC SNMP 08: Verify PDU pdug5InputResettableEnergy
+    [Documentation]    Test to verify SNMP Get for PDU Input Resettable Energy
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputResettableEnergy}
+    Log    ${result}  
+    
+TC SNMP 09: Verify PDU pdug5InputPowerFactor
+    [Documentation]    Test to verify SNMP Get for PDU Power Factor
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputPowerFactor}
+    Log    ${result}    
+    
+TC SNMP 10: Verify PDU pdug5InputPowerVAR
+    [Documentation]    Test to verify SNMP Get for PDU Power VAR
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputPowerVAR}
+    
+TC SNMP 11: Verify PDU pdug5InputTotalCurrent
+    [Documentation]    Test to verify SNMP Get for PDU Input Total Current
+    [Tags]    SNMP    SYS    SmokeTest
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputTotalCurrent}
+    Log    ${result}    
+    

@@ -1,0 +1,23 @@
+*** Settings ***
+Library           String
+Library           OperatingSystem
+
+*** Variables ***
+
+*** Keywords ***
+
+Get REST Method
+    [Documentation]    Fetch REST GET Method
+    [Arguments]    ${uri}
+    ${res} =    Restapi Get Method    ${uri}     ${USERNAME}     ${PASSWORD}
+    [return]  ${res}
+    
+POST REST Method
+    [Documentation]    REST POST Method
+    [Arguments]    ${uri}
+    
+Execute SSH Command
+    [Documentation]    Execute SSH command in the PDU
+    [Arguments]    ${command}
+    ${res}=    Run Ssh Command    ${command}    ${HOST}    ${USERNAME}     ${PASSWORD}    ${cmd_prompt_PAN}
+    [return]  ${res}

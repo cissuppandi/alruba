@@ -1,0 +1,201 @@
+*** Settings ***
+
+Library    snmplib
+
+Resource     Resource.txt
+Resource     Keywords.txt
+
+*** Variables ***
+${local_host}						10.20.90.198
+${pdug5IdentIndex}					1.3.6.1.4.1.19536.10.1.1.2.1.1.1
+${pdug5Name}						1.3.6.1.4.1.19536.10.1.1.2.1.2.1
+${pdug5Model}						1.3.6.1.4.1.19536.10.1.1.2.1.3.1
+${pdug5Manufacturer}				1.3.6.1.4.1.19536.10.1.1.2.1.4.1
+${pdug5FirmwareVersion}				1.3.6.1.4.1.19536.10.1.1.2.1.5.1
+${pdug5FirmwareVersionTimeStamp}	1.3.6.1.4.1.19536.10.1.1.2.1.6.1
+${pdug5PartNumber}					1.3.6.1.4.1.19536.10.1.1.2.1.7.1
+${pdug5SerialNumber}				1.3.6.1.4.1.19536.10.1.1.2.1.8.1
+${pdug5Status}						1.3.6.1.4.1.19536.10.1.1.2.1.9.1
+${pdug5Controllable}				1.3.6.1.4.1.19536.10.1.1.2.1.10.1
+${pdug5InputPhaseCount}				1.3.6.1.4.1.19536.10.1.1.2.1.11.1
+${pdug5GroupCount}					1.3.6.1.4.1.19536.10.1.1.2.1.12.1
+${pdug5OutletCount}					1.3.6.1.4.1.19536.10.1.1.2.1.13.1
+${pdug5MACAddress}					1.3.6.1.4.1.19536.10.1.1.2.1.14.1
+${pdug5IPv4Address}					1.3.6.1.4.1.19536.10.1.1.2.1.15.1
+${pdug5IPv6Address}					1.3.6.1.4.1.19536.10.1.1.2.1.16.1
+
+${pdug5ConfigSNMP}							1.3.6.1.4.1.19536.10.1.1.3.1.2.1
+${pdug5ConfigFtps}							1.3.6.1.4.1.19536.10.1.1.3.1.3.1
+${pdug5ConfigHttp}							1.3.6.1.4.1.19536.10.1.1.3.1.4.1
+${pdug5ConfigHttps}							1.3.6.1.4.1.19536.10.1.1.3.1.5.1
+${pdug5ConfigIPv4IPv6Switch}				1.3.6.1.4.1.19536.10.1.1.3.1.6.1
+${pdug5ConfigRedfishAPI}					1.3.6.1.4.1.19536.10.1.1.3.1.7.1
+${pdug5ConfigOledDispalyOrientation}		1.3.6.1.4.1.19536.10.1.1.3.1.8.1
+${pdug5ConfigEnergyReset}					1.3.6.1.4.1.19536.10.1.1.3.1.9.1
+${pdug5ConfigNetworkManagementCardReset}	1.3.6.1.4.1.19536.10.1.1.3.1.10.1
+${pdug5ConfigDaisyChainStatus}				1.3.6.1.4.1.19536.10.1.1.3.1.11.1
+
+#${OutletCount}    	16
+#${InputPhaseCount}    	1
+
+*** Test Cases ***
+TC SNMP 01: Verify SNMP Connection
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SSH    SYS    SmokeTest    Anisha
+    #${connection} =    Open Snmp V2c Connection    ${HOST}    public    161
+    #${resp} =    Get    SNMPv2-MIB::sysDescr
+    ${result} =    Get Pdu Count Jones    ${local_host}    public    private
+    Log    ${result}	
+    
+    
+TC SNMP 01: Verify PDU Model
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest   Anisha   
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5Model}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Model}
+    
+TC SNMP 02: Verify PDU Manufacturer
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5Manufacturer}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Manufacturer}
+
+TC SNMP 03: Verify PDU FirmwareVersion
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${SKU_FW_Ver}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Manufacturer}
+        
+TC SNMP 04: Verify PDU PartNumber
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5PartNumber}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Manufacturer}
+    
+TC SNMP 05: Verify PDU SerialNumber
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5SerialNumber}
+    Log    ${result} 
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Serial_Number}
+    
+TC SNMP 06: Verify PDU Status
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5Status}
+    Log    ${result}  
+    
+TC SNMP 07: Verify PDU Controllable
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5Controllable}
+    Log    ${result}    
+    
+TC SNMP 08: Verify PDU InputPhaseCount
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5InputPhaseCount}
+    Should Be Equal As Integers	    ${result[1]}    ${InputPhaseCount}   
+    
+TC SNMP 09: Verify PDU pdug5GroupCount
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5GroupCount}
+    Log    ${result}    
+    
+TC SNMP 10: Verify PDU pdug5OutletCount
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp Int Data    ${HOST}    public    private    ${pdug5OutletCount}
+    Log    ${result}
+    Log    ${result[1]}
+    Should Be Equal As Integers	    ${result[1]}    ${SKU_Outlet_Count}
+    
+TC SNMP 11: Verify PDU pdug5MACAddress
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5MACAddress}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Manufacturer}
+        
+TC SNMP 12: Verify PDU pdug5IPv4Address
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5IPv4Address}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Manufacturer}
+    
+TC SNMP 13: Verify PDU pdug5IPv6Address
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5IPv6Address}
+    Log    ${result} 
+    
+TC SNMP 14: Verify PDU pdug5ConfigSNMP
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigSNMP}
+    Log    ${result} 
+    
+TC SNMP 15: Verify PDU pdug5ConfigFtps
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigFtps}
+    Log    ${result} 
+    
+TC SNMP 16: Verify PDU pdug5ConfigHttp
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigHttp}
+    Log    ${result} 
+    
+TC SNMP 17: Verify PDU pdug5ConfigHttps
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigHttps}
+    Log    ${result} 
+    
+TC SNMP 18: Verify PDU pdug5ConfigIPv4IPv6Switch
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigIPv4IPv6Switch}
+    Log    ${result} 
+    
+TC SNMP 19: Verify PDU pdug5ConfigRedfishAPI
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigRedfishAPI}
+    Log    ${result} 
+    
+    
+TC SNMP 20: Verify PDU pdug5ConfigOledDispalyOrientation
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigOledDispalyOrientation}
+    Log    ${result} 
+    
+    
+TC SNMP 21: Verify PDU pdug5ConfigEnergyReset
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigEnergyReset}
+    Log    ${result} 
+    
+    
+TC SNMP 22: Verify PDU pdug5ConfigNetworkManagementCardReset
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest    
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigNetworkManagementCardReset}
+    Log    ${result} 
+    
+    
+TC SNMP 23: Verify PDU pdug5ConfigDaisyChainStatus
+    [Documentation]    Test to verify SNMP Identfication MIB Table
+    [Tags]    SNMP    SYS    SmokeTest   
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5ConfigDaisyChainStatus}
+    Log    ${result} 
+    

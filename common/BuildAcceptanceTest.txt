@@ -1,0 +1,159 @@
+*** Settings ***
+Library    RestAPILibrary
+Library    Collections
+Library    SSHMyLibrary
+Library    FtpLibrary
+
+Resource     Resource.txt
+Resource     Keywords.txt
+
+*** Variables ***
+${public_address} 		speedtest.tele2.net
+
+
+*** Test Cases ***
+TC BAT 01: Testing REST URI For Base URI
+    [Documentation]    Build Acceptance Test Cases REST URI Connection
+    [Tags]    REST    Base    SmokeTest    Jones
+    Log    "Verifying the Connection for Rest Interface"
+    ${res}=    Restapi Get Method    ${rest_uri_base}     ${USERNAME}     ${PASSWORD}
+    Log    ${res}
+
+TC BAT 02: Testing REST URI For Accounts
+    [Documentation]    Build Acceptance Test Cases REST URI Accounts
+    [Tags]    REST    Accounts    SmokeTest    Jones
+    Log    "Verifying Accounts on the PDU"
+    ${res}=    Restapi Get Method    ${rest_uri_accounts}     ${USERNAME}     ${PASSWORD}
+    Log    ${res}
+    
+TC BAT 03: Testing REST URI For Power Distribution
+    [Documentation]    Build Acceptance Test Cases REST URI Power Distribution
+    [Tags]    REST    Network    SmokeTest
+    Log    "Verifying Power Dist Info on the PDU"
+    ${res}=    Restapi Get Method    ${rest_uri_pd_1}     ${USERNAME}     ${PASSWORD}
+    Log    ${res}
+    
+TC BAT 04: Testing REST URI For Manager
+    [Documentation]    Build Acceptance Test Cases REST URI Power Manager
+    [Tags]    REST    Network    SmokeTest
+    Log    "Verifying Managers on the PDU"
+    ${res}=    Restapi Get Method    ${rest_uri_pd_Manager}     ${USERNAME}     ${PASSWORD}
+    Log    ${res}
+    
+TC BAT 05: Testing REST URI For Managers
+    [Documentation]    Build Acceptance Test Cases REST URI Power Managers
+    [Tags]    REST    Network    SmokeTest
+    Log    "Verifying Managers on the PDU"
+    ${res}=    Restapi Get Method    ${rest_uri_managers_manager}     ${USERNAME}     ${PASSWORD}
+    Log    ${res}
+    
+TC BAT 06: Testing REST URI For Network Manager
+    [Documentation]    Build Acceptance Test Cases REST URI Network Manager
+    [Tags]    REST    Network    SmokeTest
+    Log    "Verifying Rest Interface for Network Mananger on PDU"
+    ${res} =    Get REST Method    ${NETWORK_URI}
+    Log    ${res}
+    ${ip_details} =    Get From Dictionary    ${res}    IPDetails
+    ${ip_addr} =    Get From Dictionary    ${ip_details}    IPV4Address
+    Should Be Equal    ${ip_addr}    ${HOST}
+    ${gateway_ip} =    Get From Dictionary    ${ip_details}    GatewayIP
+    Should Be Equal    ${gateway_ip}    ${GATEWAY_IP}
+    ${subnet_mask} =    Get From Dictionary    ${ip_details}    SubnetMask
+    Should Be Equal    ${subnet_mask}    ${SUBNET_MASK}
+
+TC BAT 07: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys ver
+    [Tags]    SSH    SYS    SmokeTest
+    ${response} =    Execute SSH Command    ${SYS_VER}
+    Log    ${response}
+    
+    ${data} =    Fetch From Right    ${response}    SUCCESS
+    ${ver} =    Fetch From Left    ${data}    Bootloader
+    ${num} =    Fetch From Right    ${ver}    Version
+    ${version} =    Fetch From Right    ${num}    :
+    ${final} =    Fetch From Left    ${version}    PANDUIT
+    Log    ${ver}
+    Log    ${num}
+    Log    ${version}
+    Log    ${final}
+    #Should Be Equal    ${final}    ${CURR_TEST_VERSION}
+
+TC BAT 08: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys date
+    [Tags]    SSH    SYS    SmokeTest
+    ${response} =    Execute SSH Command    ${SYS_DATE}
+    Log    ${response}
+    
+TC BAT 09: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys time
+    [Tags]    SSH    SYS    SmokeTest    Jones
+    ${response} =    Execute SSH Command    ${SYS_TIME}
+    Log    ${response}
+    
+TC BAT 10: Verify SSH Command Sys
+    [Documentation]    Test to verify ssh command sys ntp
+    [Tags]    SSH    SYS    SmokeTest1
+    ${response} =    Execute SSH Command    ${SYS_NTP}
+    Log    ${response}
+    
+TC BAT 11: Verify SSH Command Net
+    [Documentation]    Test to verify ssh command net tcpip
+    [Tags]    SSH    Net    SmokeTest
+    ${response} =    Execute SSH Command    ${NET_TCPIP}
+    Log    ${response}
+    
+TC BAT 12: Verify SSH Command Net
+    [Documentation]    Test to verify ssh command net mac
+    [Tags]    SSH    Net    SmokeTest
+    ${response} =    Execute SSH Command    ${NET_MAC}
+    Log    ${response}
+    
+TC BAT 13: Verify SSH Command Usr
+    [Documentation]    Test to verify ssh command usr
+    [Tags]    SSH    USR    SmokeTest
+    ${response} =    Execute SSH Command    ${USR}
+    Log    ${response}
+    
+TC BAT 14: Verify SSH Command Usr
+    [Documentation]    Test to verify ssh command Usr list
+    [Tags]    SSH    USR    SmokeTest
+    ${response} =    Execute SSH Command    ${USR_LIST}
+    Log    ${response}
+    
+TC BAT 15: Verify SSH Command Dev
+    [Documentation]    Test to verify ssh command dev
+    [Tags]    SSH    DEV    SmokeTest
+    ${response} =    Execute SSH Command    ${DEV_SNR}
+    Log    ${response}
+
+TC BAT 16: Verify SSH Command Dev
+    [Documentation]    Test to verify ssh command dev daisy
+    [Tags]    SSH    DEV    SmokeTest
+    ${response} =    Execute SSH Command    ${DEV_DAISY}
+    Log    ${response}
+    
+TC BAT 17: Verify SSH Command Dev
+    [Documentation]    Test to verify ssh command dev hid
+    [Tags]    SSH    DEV    SmokeTest
+    ${response} =    Execute SSH Command    ${DEV_HID}
+    Log    ${response}
+    
+TC BAT 18: Verify SSH Command Dev
+    [Documentation]    Test to verify ssh command dev hid hot lock
+    [Tags]    SSH    DEV    SmokeTest
+    ${response} =    Execute SSH Command    ${DEV_HID_HOT_LCK}
+    Log    ${response}
+    
+TC BAT 19: Verify SSH Command Dev
+    [Documentation]    Test to verify ssh command dev ledstrip
+    [Tags]    SSH    DEV    SmokeTest
+    ${response} =    Execute SSH Command    ${DEV_LED}
+    Log    ${response} 
+
+TC BAT 15: Testing FTPS
+    [Documentation]    Build Acceptance Test Cases for FTPS
+    [Tags]    REST    Base    SmokeTest1    JJ
+    ftp connect    ${HOST}
+    ftp close
+    #${res}=    get all ftp connections
+    #ftp connect    ${HOST}    ${USERNAME}    ${PASSWORD}

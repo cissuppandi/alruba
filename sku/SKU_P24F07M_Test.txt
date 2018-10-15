@@ -1,0 +1,50 @@
+*** Settings ***
+
+Library    snmplib
+
+Resource     Resource.txt
+Resource     Keywords.txt
+Resource     SKU_P16E19M.txt
+
+*** Variables ***
+${pdug5Model}						${BASE_OID} + ${OID_TABLE} + 1.1.2.1.3.1
+${pdug5Manufacturer}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.4.1
+${pdug5FirmwareVersion}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.5.1
+${pdug5PartNumber}					${BASE_OID} + ${OID_TABLE} + 1.1.2.1.7.1
+${pdug5SerialNumber}				${BASE_OID} + ${OID_TABLE} + 1.1.2.1.8.1
+
+*** Test Cases ***
+TC SKU 01: Verify PDU Model With SKU
+    [Documentation]    Test to verify Model of the SKU
+    [Tags]    SNMP    SKUP16E19M
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5Model}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Model}
+    
+TC SKU 02: Verify PDU Manufacturer With SKU
+    [Documentation]    Test to verify Manufacturer of the SKU
+    [Tags]    SNMP    SKUP16E19M
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5Manufacturer}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Manufacturer}
+    
+TC SKU 03: Verify PDU FW Version For SKU
+    [Documentation]    Test to verify Firmware Version on this SKU
+    [Tags]    SNMP    SKUP16E19M
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5FirmwareVersion}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_FW_Ver}
+    
+TC SKU 04: Verify PDU Part Number For SKU
+    [Documentation]    Test to verify Part Number on this SKU
+    [Tags]    SNMP    SKUP16E19M
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5PartNumber}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Part_Number}
+    
+TC SKU 05: Verify PDU Serial Number For SKU
+    [Documentation]    Test to verify Serial Number on this SKU
+    [Tags]    SNMP    SKUP16E19M
+    ${result} =    Get Pdu Snmp String Data    ${HOST}    public    private    ${pdug5SerialNumber}
+    Log    ${result}
+    Should Be Equal As Strings    ${result[1]}    ${SKU_Serial_Number}

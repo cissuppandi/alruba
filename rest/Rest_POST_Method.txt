@@ -1,0 +1,18 @@
+*** Settings ***
+Library    RestAPILibrary
+Library    Collections
+
+Resource     Resource.txt
+Resource     Keywords.txt
+
+
+*** Variables ***
+${role}          /admin
+${user}      	/user
+
+*** Test Cases ***
+
+TC REST 01: Testing REST URI For Base URI
+    [Documentation]    Try outs
+    [Tags]    REST    Base    SmokeTest    Full    Anisha
+	Create Post Session

@@ -1,0 +1,77 @@
+*** Settings ***
+Library           String
+Library           OperatingSystem
+
+*** Variables ***
+
+${CURR_TEST_VERSION}	2.3.5
+${BASE_OID}				1.3.6.1.4.1.19536.
+${OID_TABLE}			10.
+
+${tmp}			        Firmware   Version : 
+
+${HOST}                	192.168.11.233
+${SUBNET_MASK}         	255.255.255.0
+${GATEWAY_IP}          	192.168.0.1
+
+${USERNAME}          	admin
+${PASSWORD}          	1234567!
+
+${NTP1}					192.168.11.50
+${NTP2}					192.168.1.11
+
+${HTTP_OK}           200
+
+#####################
+#  REST URIs        #
+#####################
+
+${rest_uri_base}             	https://${HOST}/redfish/v1/
+${rest_uri_accounts}         	https://${HOST}/redfish/v1/Accounts
+${rest_uri_pd_1}     			https://${HOST}/redfish/v1/PowerDistribution/1
+${rest_uri_pd_Manager}			https://${HOST}/redfish/v1/Manager
+${rest_uri_managers_manager}	https://${HOST}/redfish/v1/Managers/manager
+${rest_uri_pd_Network}			https://${HOST}/redfish/v1/Managers/1/NetworkService
+
+${NETWORK_URI}			https://${HOST}/redfish/v1/Managers/1/NetworkService
+
+#####################
+#  SSH Commands     #
+#####################
+
+${cmd_prompt_PAN}		   PANDUIT>
+${cmd_prompt_HPE}		   HPE>
+${SYS_VER}				sys ver
+${SYS_DATE}				sys date
+${SYS_TIME}				sys time
+${SYS_NTP}				sys ntp ${NTP1} ${NTP2}
+
+
+${NET_TCPIP}			net tcpip
+${NET_MAC}				net mac
+
+${USR}					usr
+${USR_LIST}				usr list
+
+${DEV_SNR}				dev sensor
+${DEV_DAISY}			dev daisy
+${DEV_HID}				dev hid
+${DEV_HID_HOT_LCK}		dev hid hot lock
+${DEV_HID_HOT_LCK}		dev hid hot lock
+${DEV_LED}				dev ledstrip
+
+
+#####################
+#  SKU Info	        #
+#####################
+${OutletCount}    			16
+${InputPhaseCount}    		1
+${SKU_Model}				200-240V, 24A, 5.0kVA, 50/60Hz
+${SKU_Manufacturer}			PANDUIT
+${SKU_FW_Ver}				2.3.5
+${SKU_Part_Number}			P16E19M
+${SKU_Serial_Number}		PAN9876543
+${SKU_Input_Phase}			1
+${SKU_Group_Count}			2
+${SKU_Outlet_Count}			16
+${SKU_Input_Type}			singlePhase  (1)
