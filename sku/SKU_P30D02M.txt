@@ -1,0 +1,20 @@
+######################
+# SKU Info - P30D02M #
+######################
+
+${SKU_Model}				200-240V, 24A, 8.6kVA, 50/60Hz
+${SKU_Manufacturer}			PANDUIT
+${SKU_Part_Number}			P30D02M
+${SKU_Input_Phase_Count}		3
+${SKU_Group_Count}			3
+${SKU_Outlet_Count}			30
+${SKU_Input_Type}			threePhaseWye (4)
+${PDU Power Rating}			8.6kVA
+${PDU Input Rating}			24A
+${PDU Breaker Rating}			20A
+${Outlet_Config}                        {'OutletType1':'i5-20R','OutletType2':'i5-20R','OutletType3':'i5-20R','OutletType4':'i5-20R','OutletType5':'i5-20R',
+                                         'OutletType6':'i5-20R','OutletType7':'iecC13','OutletType8':'iecC13','OutletType9':'iecC13','OutletType10':'iecC13',
+                                         'OutletType11':'iecC13','OutletType12':'iecC13','OutletType13':'iecC19','OutletType14':'iecC19','OutletType15':'iecC13',
+                                         'OutletType16':'iecC13','OutletType17':'iecC13','OutletType18':'iecC13','OutletType19':'iecC13','OutletType20':'iecC13',
+                                         'OutletType21':'iecC19','OutletType22':'iecC19','OutletType23':'iecC13','OutletType24':'iecC13','OutletType25':'iecC13',
+                                         'OutletType26':'iecC13','OutletType27':'iecC13','OutletType28':'iecC13','OutletType29':'iecC19','OutletType30':'iecC19'}

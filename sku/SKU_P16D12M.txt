@@ -1,0 +1,18 @@
+######################
+# SKU Info - P16D12M #
+######################
+
+${SKU_Model}				100-120V, 24A, 2.9kVA, 50/60Hz
+${SKU_Manufacturer}			PANDUIT
+${SKU_Part_Number}			P16D12M
+${SKU_Input_Phase_Count}		1
+${SKU_Group_Count}			2
+${SKU_Outlet_Count}			16
+${SKU_Input_Type}			singlePhase (1)
+${PDU Power Rating}			2.9kVA
+${PDU Input Rating}			24A
+${PDU Breaker Rating}			20A
+${Outlet_Config}                        {'OutletType1':'i5-20R','OutletType2':'i5-20R','OutletType3':'i5-20R','OutletType4':'i5-20R','OutletType5':'i5-20R',
+                                         'OutletType6':'i5-20R','OutletType7':'i5-20R','OutletType8':'i5-20R','OutletType9':'i5-20R','OutletType10':'i5-20R',
+                                         'OutletType11':'i5-20R','OutletType12':'i5-20R','OutletType13':'i5-20R','OutletType14':'i5-20R','OutletType15':'i5-20R',
+                                         'OutletType16':'i5-20R'}

@@ -1,0 +1,20 @@
+######################
+# SKU Info - P24G05M #
+######################
+
+
+${SKU_Model}				200-240V, 48A, 17.3kVA, 50/60Hz
+${SKU_Manufacturer}			PANDUIT
+${SKU_Part_Number}			P24G05M
+${SKU_Input_Phase_Count}		3
+${SKU_Group_Count}			6
+${SKU_Outlet_Count}			24
+${SKU_Input_Type}			threePhaseDelta (3)
+${PDU Power Rating}			17.3kVA
+${PDU Input Rating}			48A
+${PDU Breaker Rating}			20A
+${Outlet_Config}                        {'OutletType1':'iecC19','OutletType2':'iecC19','OutletType3':'iecC13','OutletType4':'iecC13','OutletType5':'iecC13',
+                                         'OutletType6':'iecC13','OutletType7':'iecC19','OutletType8':'iecC19','OutletType9':'iecC19','OutletType10':'iecC19',
+                                         'OutletType11':'iecC13','OutletType12':'iecC13','OutletType13':'iecC13','OutletType14':'iecC13','OutletType15':'iecC19',
+                                         'OutletType16':'iecC19','OutletType17':'iecC19','OutletType18':'iecC19','OutletType19':'iecC13','OutletType20':'iecC13',
+                                         'OutletType21':'iecC13','OutletType22':'iecC13','OutletType23':'iecC19','OutletType24':'iecC19'}

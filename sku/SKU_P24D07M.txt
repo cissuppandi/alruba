@@ -1,0 +1,19 @@
+######################
+# SKU Info - P24D07M #
+######################
+
+${SKU_Model}				200-240V, 24A, 5.0kVA, 50/60Hz
+${SKU_Manufacturer}			PANDUIT
+${SKU_Part_Number}			P24D07M
+${SKU_Input_Phase_Count}		1
+${SKU_Group_Count}			2
+${SKU_Outlet_Count}			24
+${SKU_Input_Type}			singlePhase (1)
+${PDU Power Rating}			5kVA
+${PDU Input Rating}			24A
+${PDU Breaker Rating}			20A
+${Outlet_Config}                        {'OutletType1':'iecC13','OutletType2':'iecC13','OutletType3':'iecC13','OutletType4':'iecC13','OutletType5':'iecC13',
+                                         'OutletType6':'iecC13','OutletType7':'iecC13','OutletType8':'iecC13','OutletType9':'iecC13','OutletType10':'iecC13',
+                                         'OutletType11':'iecC19','OutletType12':'iecC19','OutletType13':'iecC13','OutletType14':'iecC13','OutletType15':'iecC13',
+                                         'OutletType16':'iecC13','OutletType17':'iecC13','OutletType18':'iecC13','OutletType19':'iecC13','OutletType20':'iecC13',
+                                         'OutletType21':'iecC13','OutletType22':'iecC13','OutletType23':'iecC19','OutletType24':'iecC19'}

@@ -1,0 +1,16 @@
+######################
+# SKU Info - P06D16M #
+######################
+
+${SKU_Model}				200-240V, 24A, 8.6kVA, 50/60Hz
+${SKU_Manufacturer}			PANDUIT
+${SKU_Part_Number}			P06D16M
+${SKU_Input_Phase_Count}		3
+${SKU_Group_Count}			3
+${SKU_Outlet_Count}			6
+${SKU_Input_Type}			threePhaseDelta (3)
+${PDU Power Rating}			8.6kVA
+${PDU Input Rating}			24A
+${PDU Breaker Rating}			20A
+${Outlet_Config}                        {'OutletType1':'iecC19','OutletType2':'iecC19','OutletType3':'iecC19','OutletType4':'iecC19','OutletType5':'iecC19',
+                                         'OutletType6':'iecC19'}

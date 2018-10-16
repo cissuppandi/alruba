@@ -1,0 +1,17 @@
+######################
+# SKU Info - P08G12M #
+######################
+
+
+${SKU_Model}				200-240V, 32A, 7.4kVA, 50/60Hz
+${SKU_Manufacturer}			PANDUIT
+${SKU_Part_Number}			P08G12M
+${SKU_Input_Phase_Count}		1
+${SKU_Group_Count}			2
+${SKU_Outlet_Count}			08
+${SKU_Input_Type}			singlePhase (1)
+${PDU Power Rating}			7.4kVA
+${PDU Input Rating}			32A
+${PDU Breaker Rating}			16A
+${Outlet_Config}                        {'OutletType1':'iecC13','OutletType2':'iecC13','OutletType3':'iecC13','OutletType4':'iecC13','OutletType5':'iecC13',
+                                         'OutletType6':'iecC13','OutletType7':'iecC13','OutletType8':'iecC13'}
