@@ -10,9 +10,10 @@ ${OID_TABLE}			10.
 
 ${tmp}			        Firmware   Version : 
 
-${HOST}                	192.168.11.233
+${HOST}                	10.20.90.232
 ${SUBNET_MASK}         	255.255.255.0
 ${GATEWAY_IP}          	192.168.0.1
+
 
 ${USERNAME}          	admin
 ${PASSWORD}          	1234567!
@@ -26,7 +27,7 @@ ${HTTP_OK}           200
 #  REST URIs        #
 #####################
 
-${rest_uri_base}             	https://${HOST}/redfish/v1/
+${rest_uri_base}             	https://${HOST}/redfish/v1
 ${rest_uri_account_service}     https://${HOST}/redfish/v1/AccountService
 ${rest_uri_accounts}            https://${HOST}/redfish/v1/AccountService/Accounts
 ${rest_uri_roles}            	https://${HOST}/redfish/v1/AccountService/Roles
@@ -39,6 +40,7 @@ ${rest_uri_log_service}			https://${HOST}/redfish/v1/Managers/1/LogServices
 ${rest_uri_rackpower}			https://${HOST}/redfish/v1/RackPower/PowerDistribution
 ${rest_uri_pdu}     			https://${HOST}/redfish/v1/PowerDistribution
 ${rest_uri_loadseg_measure}		/PowerMeasurement/LoadsegmentMeasurement
+${rest_uri_outlet_control}      https://${HOST}/redfish/v1/PowerDistribution/1/PowerControl/Loadsegment/1/OutletControl
 
 #####################
 #  SSH Commands     #

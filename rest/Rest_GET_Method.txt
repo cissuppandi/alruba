@@ -21,79 +21,91 @@ Get PDU Outlet Measurement
 	${loadseg_count}    Get From Dictionary    ${loadseg_res}    LoadSegment@odata.count
 	:FOR    ${loadseg_id}    IN RANGE    1    ${loadseg_count}+1
 	\    Log    "Verifying Outlet Measurement on the PDU ${pdu_id} LoadSegment ${loadseg_id}"
-	\    ${outlet_res}    ${outlet_res_code}=    Restapi Get Method    ${rest_uri_pdu}/${pdu_id}/PowerMeasurement/LoadSegment/${loadseg_id}/OutletMeasurement    ${USERNAME}     ${PASSWORD}
+	\    ${outlet_res}    ${outlet_res_code}=    Restapi Get Method    ${rest_uri_pdu}/${pdu_id}/PowerMeasurement/Loadsegment/${loadseg_id}/OutletMeasurement    ${USERNAME}     ${PASSWORD}
+	\    Should Be Equal As Strings    ${outlet_res_code}    <Response [200]>
+    \    Log    ${outlet_res}
+	
+Get PDU Outlet Control
+    [Documentation]    Get PDU Outlet Control in each Load Segment
+	[Arguments]    ${pdu_id}
+	${loadseg_res}    ${loadseg_res_code}=    Restapi Get Method    ${rest_uri_pdu}/${pdu_id}/${rest_uri_loadseg_measure}     ${USERNAME}     ${PASSWORD}
+	Should Be Equal As Strings    ${loadseg_res_code}    <Response [200]>
+	${loadseg_count}    Get From Dictionary    ${loadseg_res}    LoadSegment@odata.count
+	:FOR    ${loadseg_id}    IN RANGE    1    ${loadseg_count}+1
+	\    Log    "Verifying Outlet Control on the PDU ${pdu_id} LoadSegment ${loadseg_id}"
+	\    ${outlet_res}    ${outlet_res_code}=    Restapi Get Method    ${rest_uri_pdu}/${pdu_id}/PowerControl/Loadsegment/${loadseg_id}/OutletControl    ${USERNAME}     ${PASSWORD}
 	\    Should Be Equal As Strings    ${outlet_res_code}    <Response [200]>
     \    Log    ${outlet_res}
 
 	
 *** Test Cases ***
 
-TC REST 01: Testing REST URI For Base URI
-    [Documentation]    Try outs
+TC REST 01: Testing GET Request For Base URI
+    [Documentation]    Test Case to Get the Base URI Response Using GET Request
     [Tags]    REST    Base    SmokeTest    Full
     Log    "Verifying the Connection for Rest Interface"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_base}     ${USERNAME}     ${PASSWORD}
 	Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 	
-TC REST 02: Testing REST URI For Account Service
-    [Documentation]    Try outs
+TC REST 02: Testing GET Request For Account Service
+    [Documentation]    Test Case to Get the Account Service Response Using GET Request
     [Tags]    REST    AccountService    SmokeTest    Full
     Log    "Verifying Account Service on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_account_service}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 
-TC REST 03: Testing REST URI For Accounts
-    [Documentation]    Try outs
+TC REST 03: Testing GET Request For PDU Accounts
+    [Documentation]    Test Case to Get the PDU Accounts Response Using GET Request
     [Tags]    REST    Accounts    SmokeTest    Full
     Log    "Verifying Accounts on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_accounts}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 	
-TC REST 04: Testing REST URI For User Accounts 
-    [Documentation]    Try outs
+TC REST 04: Testing GET Request For User Accounts 
+    [Documentation]    Test Case to Get the User Accounts Response Using GET Request
     [Tags]    REST    User    SmokeTest    Full    
     Log    "Verifying the User on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_accounts}${user}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 	
-TC REST 05: Testing REST URI For Roles
-    [Documentation]    Try outs
+TC REST 05: Testing GET Request For PDU Roles
+    [Documentation]    Test Case to Get the PDU Roles Response Using GET Request
     [Tags]    REST    Roles    SmokeTest    Full    
     Log    "Verifying Roles on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_roles}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 	
-TC REST 06: Testing REST URI For User Roles
-    [Documentation]    Try outs
+TC REST 06: Testing GET Request For User Roles
+    [Documentation]    Test Case to Get the User Roles Response Using GET Request
     [Tags]    REST    UserRoles    SmokeTest    Full    
     Log    "Verifying UserRoles on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_roles}${role}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 	
-TC REST 07: Testing REST URI For Session Service
-    [Documentation]    Try outs
+TC REST 07: Testing GET Request For Session Service
+    [Documentation]    Test Case to Get the Session Service Response Using GET Request
     [Tags]    REST    SessionService    SmokeTest    Full    
     Log    "Verifying Session Service on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_session_service}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 	
-TC REST 08: Testing REST URI For Sessions
-    [Documentation]    Try outs
+TC REST 08: Testing GET Request For Sessions
+    [Documentation]    Test Case to Get the PDU Sessions Response Using GET Request
     [Tags]    REST    Sessions    SmokeTest    Full    
     Log    "Verifying Sessions on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_sessions}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
 	
-TC REST 09: Testing REST URI For The Active Sessions
-    [Documentation]    Try outs
+TC REST 09: Testing GET Request For The Active Sessions
+    [Documentation]    Test Case to Get the PDU Active Session Response Using GET Request
     [Tags]    REST    ActiveSession    SmokeTest    Full
     Log    "Verifying the PDU Active Session"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_sessions}     ${USERNAME}     ${PASSWORD}
@@ -105,24 +117,24 @@ TC REST 09: Testing REST URI For The Active Sessions
     Should Be Equal As Strings    ${res_code1}    <Response [200]>
 	Log    ${res1}
 	 
-TC REST 10: Testing REST URI For Managers
-    [Documentation]    Try outs
+TC REST 10: Testing GET Request For PDU Managers
+    [Documentation]    Test Case to Get the PDU Managers Response Using GET Request
     [Tags]    REST    Manager    SmokeTest    Full
     Log    "Verifying Managers on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_pdu_manager}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
     
-TC REST 11: Testing REST URI For Manager View
-    [Documentation]    Try outs
+TC REST 11: Testing GET Request For Manager View
+    [Documentation]    Test Case to Get the Manager View Response Using GET Request
     [Tags]    REST    ManagerView    SmokeTest    Full
     Log    "Verifying Managers View on the PDU"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_manager_view}     ${USERNAME}     ${PASSWORD}
     Should Be Equal As Strings    ${res_code}    <Response [200]>
 	Log    ${res}
     
-TC REST 12: Testing REST URI For Network Service
-    #[Documentation]    Try outs
+TC REST 12: Testing GET Request For PDU Network Service
+    #[Documentation]    Test Case to Get the Network Service Response Using GET Request
     [Tags]    REST    Network    SmokeTest    Full
     Log    "Verifying Rest Interface for PDU Network Service"
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_network_service}     ${USERNAME}     ${PASSWORD}
@@ -134,18 +146,10 @@ TC REST 12: Testing REST URI For Network Service
     Should Be Equal    ${gateway_ip}    ${GATEWAY_IP}
     ${subnet_mask} =    Get From Dictionary    ${res['IPDetails']}    SubnetMask
     Should Be Equal    ${subnet_mask}    ${SUBNET_MASK}
-
-TC REST 13: Testing REST URI For Log Services
-    [Documentation]    Try outs
-    [Tags]    REST    Log    SmokeTest    Full
-    Log    "Verifying Rest Interface for PDU Log Services"
-    ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_log_service}    ${USERNAME}     ${PASSWORD}
-    Should Be Equal As Strings    ${res_code}    <Response [200]>
-	Log    ${res}
-
-TC REST 14: Testing REST URI For Power Distribution
-    [Documentation]    Try outs
-    [Tags]    REST    PDUInfo    SmokeTest    Full
+	
+TC REST 13: Testing GET Request For Rack Power Distribution
+    [Documentation]    Test Case to Get the Rack Power Distribution Response Using GET Request
+    [Tags]    REST    RackPower    SmokeTest    Full
     ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_rackpower}     ${USERNAME}     ${PASSWORD}
 	Should Be Equal As Strings    ${res_code}    <Response [200]>
 	${pdu_count}    Get From Dictionary    ${res}    Members@odata.count
@@ -155,8 +159,8 @@ TC REST 14: Testing REST URI For Power Distribution
 	\    Should Be Equal As Strings    ${pdu_res_code}    <Response [200]>
     \    Log    ${pdu_res}
 	
-TC REST 15: Testing REST URI For LoadSegment Measurement
-    [Documentation]    Try outs
+TC REST 14: Testing GET Request For LoadSegment Measurement
+    [Documentation]    Test Case to Get the Loadsegment Measurement Response Using GET Request
     [Tags]    REST    LoadSegment    SmokeTest    Full
     ${pdu_res}    ${pdu_res_code}=    Restapi Get Method    ${rest_uri_rackpower}     ${USERNAME}     ${PASSWORD}
 	Should Be Equal As Strings    ${pdu_res_code}    <Response [200]>
@@ -167,11 +171,39 @@ TC REST 15: Testing REST URI For LoadSegment Measurement
 	\    Should Be Equal As Strings    ${loadseg_res_code}    <Response [200]>
 	\    Log    ${loadseg_res}
 
-TC REST 16: Testing REST URI For Outlet Measurement
-    [Documentation]    Try outs
+TC REST 15: Testing GET Request For Outlet Measurement
+    [Documentation]    Test Case to Get the PDU Outlet Measurement Response Using GET Request
     [Tags]    REST    Outlet    SmokeTest    Full
     ${pdu_res}    ${pdu_res_code}=    Restapi Get Method    ${rest_uri_rackpower}     ${USERNAME}     ${PASSWORD}
 	Should Be Equal As Strings    ${pdu_res_code}    <Response [200]>
 	${pdu_count}    Get From Dictionary    ${pdu_res}    Members@odata.count
 	:FOR    ${pdu_id}    IN RANGE    1    ${pdu_count}+1
 	\    Get PDU Outlet Measurement    ${pdu_id}
+	
+#Not yet Implemented
+
+#TC REST 16: Testing GET Request For Log Services
+    #[Documentation]    Test Case to Get the Log Service Response Using GET Request
+    #[Tags]    REST    Log    SmokeTest    Full
+    #Log    "Verifying Rest Interface for PDU Log Services"
+    #${res}    ${res_code}=    Restapi Get Method    ${rest_uri_log_service}    ${USERNAME}     ${PASSWORD}
+    #Should Be Equal As Strings    ${res_code}    <Response [200]>
+	#Log    ${res}
+	
+#TC REST 17: Testing GET Request For Event Services
+    #[Documentation]    Test Case to Get the PDU Event Service Response Using GET Request
+    #[Tags]    REST    Event    SmokeTest    Full
+    #Log    "Verifying Rest Interface for PDU Log Services"
+    #${res}    ${res_code}=    Restapi Get Method    ${rest_uri_event_service}    ${USERNAME}     ${PASSWORD}
+    #Should Be Equal As Strings    ${res_code}    <Response [200]>
+	#Log    ${res}
+	
+#TC REST 18: Testing GET Request For Outlet Control
+    #[Documentation]    Test Case to Get the PDU Outlet Control Response Using GET Request
+    #[Tags]    REST    Outlet    SmokeTest    Full
+    #${pdu_res}    ${pdu_res_code}=    Restapi Get Method    ${rest_uri_rackpower}     ${USERNAME}     ${PASSWORD}
+	#Should Be Equal As Strings    ${pdu_res_code}    <Response [200]>
+	#${pdu_count}    Get From Dictionary    ${pdu_res}    Members@odata.count
+	#:FOR    ${pdu_id}    IN RANGE    1    ${pdu_count}+1
+	#\    Get PDU Outlet Control    ${pdu_id}
+	

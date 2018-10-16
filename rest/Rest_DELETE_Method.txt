@@ -1,0 +1,35 @@
+*** Settings ***
+Library    RestAPILibrary
+Library    Collections
+
+Resource     Resource.txt
+Resource     Keywords.txt
+
+
+*** Test Cases ***
+
+TC REST 01: Testing DELETE Request to Delete User Accounts
+    [Documentation]    Test Case to Delete User Accounts Using DELETE Request
+    [Tags]    REST    Accounts    SmokeTest    Full
+	${user}    Convert To String   anisha
+	Log    "Deleting a User Account"
+	${res}    ${res_code}=     Restapi Delete Method    ${rest_uri_accounts}/${user}    ${USERNAME}     ${PASSWORD}
+	Should Be Equal As Strings    ${res_code}    <Response [200]>
+	${user_deleted}    Get From Dictionary    ${res}    User Deleted
+	Should be Equal As Strings    ${user}    ${user_deleted}
+	
+TC REST 02: Testing DELETE Request to Delete User Session
+    [Documentation]    Test Case to Delete User Session Using DELETE Request
+    [Tags]    REST    Session    SmokeTest    Full
+	#Retrieving the session_id using GET Request
+	${res}    ${res_code}=    Restapi Get Method    ${rest_uri_sessions}     ${USERNAME}     ${PASSWORD}
+    Should Be Equal As Strings    ${res_code}    <Response [200]>
+	${session_member}=    Get From Dictionary    ${res}   Members 
+	${member_url}    Get From Dictionary    ${session_member[0]}    @odata.id
+	${session_id}=    Fetch From Right    ${member_url}    /
+	#Deleting the session
+	Log    "Deleting a User Session"
+	${res}    ${res_code}=     Restapi Delete Method    ${rest_uri_sessions}/${session_id}    ${USERNAME}     ${PASSWORD}
+	Should Be Equal As Strings    ${res_code}    <Response [200]>
+    ${session_deleted}    Get From Dictionary    ${res}    Session Deleted
+	Should be Equal As Strings    ${session_id}    ${session_deleted}   

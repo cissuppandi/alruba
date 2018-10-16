@@ -5,8 +5,8 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 3.0.2 (Python 2.7.12 on win32)" name="Generator">
-<link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
+<meta content="Robot Framework 3.0.4 (Python 2.7.15 on win32)" name="Generator">
+<link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAqAAAAAAAAAAAAAAAAAAAALIAAAD/AAAA4AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA4AAAAP8AAACxAAAAAAAAAKYAAAD/AAAAuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/AAAA/wAAAKkAAAD6AAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8AAAD/AAAA+gAAAMMAAAAAAAAAAgAAAGsAAABrAAAAawAAAGsAAABrAAAAawAAAGsAAABrAAAADAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAIsAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAANEAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAAAAAAAAMgAAADIAAAAyAAAAMgAAADIAAAAyAAAAMgAAADIAAAAFAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAADwAAAB8AAAAAAAAAGAAAABcAAAAAAAAAH8AAABKAAAAAAAAAAAAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAADCAAAA/wAAACkAAADqAAAA4QAAAAAAAAD7AAAA/wAAALAAAAAGAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAIwAAAP4AAAD/AAAA/wAAAGAAAAAAAAAAAAAAAMkAAAD/AAAAigAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAAAAAAAIAAAAcAAAABkAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA2gAAAP8AAAD7AAAAywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4AAAD/AAAAqwAAAP8AAACvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIAAAD/AAAAsgAAAAAAAAC5AAAA/wAAAMoAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMkAAAD/AAAAvAAAAAAAAAAAAAAAAAAAAKwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAArQAAAAAAAAAAwAMAAIABAAAf+AAAP/wAAD/8AAAgBAAAP/wAAD/8AAA//AAAJIwAADHEAAA//AAAP/wAAB/4AACAAQAAwAMAAA==">
 <style media="all" type="text/css">
 /* Generic and misc styles */
 body {
@@ -27,6 +27,11 @@ th, td {
 }
 br {
     mso-data-placement: same-cell; /* maintain line breaks in Excel */
+}
+hr {
+    background: #ccc;
+    height: 1px;
+    border: 0;
 }
 a, a:link, a:visited {
     text-decoration: none;
@@ -1545,20 +1550,30 @@ function stopPropagation(event) {
 <script type="text/javascript">
 storage = function () {
     var prefix = 'robot-framework-';
+    var storage;
     function init(user) {
         prefix += user + '-';
+        storage = getStorage();
+    }
+    function getStorage() {
+        // Use localStorage if it's accessible, normal object otherwise.
+        // Inspired by https://stackoverflow.com/questions/11214404
+        try {
+            localStorage.setItem(prefix, prefix);
+            localStorage.removeItem(prefix);
+            return localStorage;
+        } catch (exception) {
+            return {};
+        }
     }
     function get(name, defaultValue) {
-        if (!localStorage)
-            return defaultValue;
-        var value = localStorage[prefix + name];
+        var value = storage[prefix + name];
         if (typeof value === 'undefined')
             return defaultValue;
         return value;
     }
     function set(name, value) {
-        if (localStorage)
-            localStorage[prefix + name] = value;
+        storage[prefix + name] = value;
     }
     return {init: init, get: get, set: set};
 }();
@@ -1567,22 +1582,22 @@ storage = function () {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[0,0,74],[],[[4,0,1,5,[6,7,8,9,10],[0,62,9,11],[]]],[],[1,0,1,0]];
+window.output["suite"] = [1,2,3,0,[],[0,0,7189],[],[[4,0,1,5,[6,7,8,9,10],[1,169,1911],[]],[11,0,1,12,[13,6,8,9,10],[1,2081,3568],[]],[14,0,1,15,[6,8,16,9,10],[0,5649,1539,17],[]]],[],[3,2,3,2]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*Rest POST Method","*F:\\Automation\\Automation\\src\\rest\\Rest_POST_Method.txt","*Rest_POST_Method.txt","*TC REST 01: Testing REST URI For Base URI","*<p>Try outs\x3c/p>","*Anisha","*Base","*Full","*REST","*SmokeTest","*No keyword with name 'Create Session' found."]);
+window.output["strings"] = window.output["strings"].concat(["*","*Rest POST Method","*G:\\Automation\\Automation\\src\\rest\\Rest_POST_Method.txt","*Rest_POST_Method.txt","*TC REST 01: Create Post Session","*<p>Test Case to Create a Session and Retrieve X-Auth-Token for Post Request\x3c/p>","*Anisha","*AuthToken","*Full","*REST","*SmokeTest","*TC REST 02: Testing POST Request for Account Service","*<p>Test Case to To Add An Account Using POST Request\x3c/p>","*Accounts","*TC REST 03: Testing POST Request for Outlet Control","*<p>Test Case to Control an Outlet Using POST Request\x3c/p>","*Outlet","*ValueError: No JSON object could be decoded"]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:00","fail":1,"label":"Critical Tests","pass":0},{"elapsed":"00:00:00","fail":1,"label":"All Tests","pass":0}],[{"elapsed":"00:00:00","fail":1,"label":"Anisha","pass":0},{"elapsed":"00:00:00","fail":1,"label":"Base","pass":0},{"elapsed":"00:00:00","fail":1,"label":"Full","pass":0},{"elapsed":"00:00:00","fail":1,"label":"REST","pass":0},{"elapsed":"00:00:00","fail":1,"label":"SmokeTest","pass":0}],[{"elapsed":"00:00:00","fail":1,"id":"s1","label":"Rest POST Method","name":"Rest POST Method","pass":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:07","fail":1,"label":"Critical Tests","pass":2},{"elapsed":"00:00:07","fail":1,"label":"All Tests","pass":2}],[{"elapsed":"00:00:04","fail":0,"label":"Accounts","pass":1},{"elapsed":"00:00:07","fail":1,"label":"Anisha","pass":2},{"elapsed":"00:00:02","fail":0,"label":"AuthToken","pass":1},{"elapsed":"00:00:07","fail":1,"label":"Full","pass":2},{"elapsed":"00:00:02","fail":1,"label":"Outlet","pass":0},{"elapsed":"00:00:07","fail":1,"label":"REST","pass":2},{"elapsed":"00:00:07","fail":1,"label":"SmokeTest","pass":2}],[{"elapsed":"00:00:07","fail":1,"id":"s1","label":"Rest POST Method","name":"Rest POST Method","pass":2}]];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1536588038539;
+window.output["baseMillis"] = 1538390893305;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 108;
+window.output["generated"] = 7205;
 </script>
 <script type="text/javascript">
 window.settings = {"background":{"fail":"#f66","nonCriticalFail":"#9e9","pass":"#9e9"},"logURL":"log.html","title":""};

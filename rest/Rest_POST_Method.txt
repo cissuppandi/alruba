@@ -6,13 +6,41 @@ Resource     Resource.txt
 Resource     Keywords.txt
 
 
-*** Variables ***
-${role}          /admin
-${user}      	/user
-
 *** Test Cases ***
 
-TC REST 01: Testing REST URI For Base URI
-    [Documentation]    Try outs
-    [Tags]    REST    Base    SmokeTest    Full    Anisha
-	Create Post Session
+TC REST 01: Create Post Session
+    [Documentation]    Test Case to Create a Session and Retrieve X-Auth-Token for Post Request
+    [Tags]    REST    AuthToken    SmokeTest    Full    Anisha
+	${body}    Convert To String    {"username": "admin", "password": "1234567!"}
+	Log    "Creating a Session using POST Request"
+	${res}    ${res_code}=    Restapi Auth Token    ${rest_uri_sessions}     ${USERNAME}     ${PASSWORD}    ${body}
+	Should Be Equal As Strings    ${res_code}    <Response [201]>
+	${auth_token}    Get From Dictionary    ${res}    X-Auth-Token
+    Log    ${auth_token}
+	Set Suite Variable    ${auth_token}
+
+TC REST 02: Testing POST Request for Account Service
+    [Documentation]    Test Case to To Add An Account Using POST Request
+    [Tags]    REST    Accounts    SmokeTest    Full    Anisha
+	${body}    Convert To String   {"username":"anisha","password":"superman","email":"superman@krypton.com","chkenable":true,"frpasschk":true,"rolename":"manager","temperature":1}
+	${user}    Fetch From Left    ${body}    ","password"
+    ${user_added}    Fetch From Right    ${user}    "	
+	Log    "Adding a User Account"
+	${res}    ${res_code}=     Restapi Post Method    ${rest_uri_accounts}    ${USERNAME}     ${PASSWORD}    ${body}    ${auth_token}
+	Should Be Equal As Strings    ${res_code}    <Response [200]>
+    ${descr}    Get From Dictionary    ${res}    Description
+	Should be Equal As Strings    ${descr}    user added${user_added}
+	Log    "Verifying If User is added"
+    ${res}    ${res_code}=    Restapi Get Method    ${rest_uri_accounts}/${user_added}     ${USERNAME}     ${PASSWORD}
+    Should Be Equal As Strings    ${res_code}    <Response [200]>
+	Log    ${res}
+	${user_id}    Get From Dictionary    ${res}    Id
+	Should Be Equal As Strings    ${user_added}    ${user_id}
+
+TC REST 03: Testing POST Request for Outlet Control
+    [Documentation]    Test Case to Control an Outlet Using POST Request
+    [Tags]    REST    Outlet    SmokeTest    Full    Anisha
+	${body}    Convert To String    {"OutletNumber": 2,"StartupState": "off","Outletname": "Out1","OnDelay": 1,"OffDelay": 2,"RebootDelay": 3,"OutletStatus": "off"}
+	${res_code}=     Restapi Post Method    ${rest_uri_outlet_control}    ${USERNAME}     ${PASSWORD}    ${body}    ${auth_token}
+	Should Be Equal As Strings    ${res_code}    <Response [200]>
+    Log    ${res}

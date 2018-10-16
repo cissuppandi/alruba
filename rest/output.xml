@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20180910 19:30:38.537" generator="Robot 3.0.2 (Python 2.7.12 on win32)">
-<suite source="F:\Automation\Automation\src\rest\Rest_POST_Method.txt" id="s1" name="Rest POST Method">
-<test id="s1-t1" name="TC REST 01: Testing REST URI For Base URI">
-<kw name="Create Post Session" library="Keywords">
-<doc>Creating a Session for Post Method</doc>
-<msg timestamp="20180910 19:30:38.605" level="TRACE">Arguments: [  ]</msg>
-<kw name="Create Session">
+<robot generated="20181001 16:18:13.305" generator="Robot 3.0.4 (Python 2.7.15 on win32)">
+<suite source="G:\Automation\Automation\src\rest\Rest_POST_Method.txt" id="s1" name="Rest POST Method">
+<test id="s1-t1" name="TC REST 01: Create Post Session">
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>{"username": "admin", "password": "1234567!"}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20181001 16:18:13.475" level="TRACE">Arguments: [ '{"username": "admin", "password": "1234567!"}' ]</msg>
+<msg timestamp="20181001 16:18:13.475" level="DEBUG">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:13.476" level="TRACE">Return: '{"username": "admin", "password": "1234567!"}'</msg>
+<msg timestamp="20181001 16:18:13.476" level="INFO">${body} = {"username": "admin", "password": "1234567!"}</msg>
+<status status="PASS" endtime="20181001 16:18:13.476" starttime="20181001 16:18:13.475"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Creating a Session using POST Request"</arg>
+</arguments>
+<msg timestamp="20181001 16:18:13.477" level="TRACE">Arguments: [ '"Creating a Session using POST Request"' ]</msg>
+<msg timestamp="20181001 16:18:13.477" level="INFO">"Creating a Session using POST Request"</msg>
+<msg timestamp="20181001 16:18:13.477" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:13.477" starttime="20181001 16:18:13.477"></status>
+</kw>
+<kw name="Restapi Auth Token" library="RestAPILibrary">
 <arguments>
 <arg>${rest_uri_sessions}</arg>
 <arg>${USERNAME}</arg>
@@ -13,52 +35,382 @@
 <arg>${body}</arg>
 </arguments>
 <assign>
-<var>${res} =</var>
+<var>${res}</var>
+<var>${res_code}</var>
 </assign>
-<msg timestamp="20180910 19:30:38.606" level="FAIL">No keyword with name 'Create Session' found.</msg>
-<status status="FAIL" endtime="20180910 19:30:38.606" starttime="20180910 19:30:38.606"></status>
+<msg timestamp="20181001 16:18:13.478" level="TRACE">Arguments: [ 'https://10.20.90.232/redfish/v1/SessionService/Sessions' | 'admin' | '1234567!' | '{"username": "admin", "password": "1234567!"}' ]</msg>
+<msg timestamp="20181001 16:18:13.480" level="DEBUG">Starting new HTTPS connection (1): 10.20.90.232:443</msg>
+<msg timestamp="20181001 16:18:15.349" level="DEBUG">https://10.20.90.232:443 "POST /redfish/v1/SessionService/Sessions HTTP/1.1" 201 0</msg>
+<msg timestamp="20181001 16:18:15.364" level="TRACE">Return: [{'Content-Length': '0', 'X-Auth-Token': '265010889', 'Connection': 'keep-alive', 'Location': '/redfish/v1/SessionService/Sessions/265010889', 'Server': 'Panduit/1.4.0', 'Content-Type': 'application/json'}, &lt;Response [201]&gt;]</msg>
+<msg timestamp="20181001 16:18:15.364" level="INFO">${res} = {'Content-Length': '0', 'X-Auth-Token': '265010889', 'Connection': 'keep-alive', 'Location': '/redfish/v1/SessionService/Sessions/265010889', 'Server': 'Panduit/1.4.0', 'Content-Type': 'application/js...</msg>
+<msg timestamp="20181001 16:18:15.364" level="INFO">${res_code} = &lt;Response [201]&gt;</msg>
+<status status="PASS" endtime="20181001 16:18:15.364" starttime="20181001 16:18:13.478"></status>
 </kw>
-<status status="FAIL" endtime="20180910 19:30:38.606" starttime="20180910 19:30:38.604"></status>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${res_code}</arg>
+<arg>&lt;Response [201]&gt;</arg>
+</arguments>
+<msg timestamp="20181001 16:18:15.364" level="TRACE">Arguments: [ &lt;Response [201]&gt; | '&lt;Response [201]&gt;' ]</msg>
+<msg timestamp="20181001 16:18:15.364" level="INFO">Argument types are:
+&lt;class 'requests.models.Response'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:15.364" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:15.364" starttime="20181001 16:18:15.364"></status>
 </kw>
-<doc>Try outs</doc>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>X-Auth-Token</arg>
+</arguments>
+<assign>
+<var>${auth_token}</var>
+</assign>
+<msg timestamp="20181001 16:18:15.364" level="TRACE">Arguments: [ {'Content-Length': '0', 'X-Auth-Token': '265010889', 'Connection': 'keep-alive', 'Location': '/redfish/v1/SessionService/Sessions/265010889', 'Server': 'Panduit/1.4.0', 'Content-Type': 'application/json'} | 'X-Auth-Token' ]</msg>
+<msg timestamp="20181001 16:18:15.364" level="TRACE">Return: b'265010889'</msg>
+<msg timestamp="20181001 16:18:15.364" level="INFO">${auth_token} = 265010889</msg>
+<status status="PASS" endtime="20181001 16:18:15.364" starttime="20181001 16:18:15.364"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${auth_token}</arg>
+</arguments>
+<msg timestamp="20181001 16:18:15.380" level="TRACE">Arguments: [ b'265010889' ]</msg>
+<msg timestamp="20181001 16:18:15.381" level="INFO">265010889</msg>
+<msg timestamp="20181001 16:18:15.381" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:15.381" starttime="20181001 16:18:15.364"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${auth_token}</arg>
+</arguments>
+<msg timestamp="20181001 16:18:15.383" level="TRACE">Arguments: [ '${auth_token}' ]</msg>
+<msg timestamp="20181001 16:18:15.384" level="INFO">${auth_token} = 265010889</msg>
+<msg timestamp="20181001 16:18:15.384" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:15.384" starttime="20181001 16:18:15.383"></status>
+</kw>
+<doc>Test Case to Create a Session and Retrieve X-Auth-Token for Post Request</doc>
 <tags>
 <tag>Anisha</tag>
-<tag>Base</tag>
+<tag>AuthToken</tag>
 <tag>Full</tag>
 <tag>REST</tag>
 <tag>SmokeTest</tag>
 </tags>
-<status status="FAIL" endtime="20180910 19:30:38.610" critical="yes" starttime="20180910 19:30:38.601">No keyword with name 'Create Session' found.</status>
+<status status="PASS" endtime="20181001 16:18:15.385" critical="yes" starttime="20181001 16:18:13.474"></status>
 </test>
-<status status="FAIL" endtime="20180910 19:30:38.613" starttime="20180910 19:30:38.539"></status>
+<test id="s1-t2" name="TC REST 02: Testing POST Request for Account Service">
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>{"username":"anisha","password":"superman","email":"superman@krypton.com","chkenable":true,"frpasschk":true,"rolename":"manager","temperature":1}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Arguments: [ '{"username":"anisha","password":"superman","email":"superman@krypton.com","chkenable":true,"frpasschk":true,"rolename":"manager","temperature":1}' ]</msg>
+<msg timestamp="20181001 16:18:15.386" level="DEBUG">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Return: '{"username":"anisha","password":"superman","email":"superman@krypton.com","chkenable":true,"frpasschk":true,"rolename":"manager","temperature":1}'</msg>
+<msg timestamp="20181001 16:18:15.386" level="INFO">${body} = {"username":"anisha","password":"superman","email":"superman@krypton.com","chkenable":true,"frpasschk":true,"rolename":"manager","temperature":1}</msg>
+<status status="PASS" endtime="20181001 16:18:15.386" starttime="20181001 16:18:15.386"></status>
+</kw>
+<kw name="Fetch From Left" library="String">
+<doc>Returns contents of the ``string`` before the first occurrence of ``marker``.</doc>
+<arguments>
+<arg>${body}</arg>
+<arg>","password"</arg>
+</arguments>
+<assign>
+<var>${user}</var>
+</assign>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Arguments: [ '{"username":"anisha","password":"superman","email":"superman@krypton.com","chkenable":true,"frpasschk":true,"rolename":"manager","temperature":1}' | '","password"' ]</msg>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Return: '{"username":"anisha'</msg>
+<msg timestamp="20181001 16:18:15.386" level="INFO">${user} = {"username":"anisha</msg>
+<status status="PASS" endtime="20181001 16:18:15.386" starttime="20181001 16:18:15.386"></status>
+</kw>
+<kw name="Fetch From Right" library="String">
+<doc>Returns contents of the ``string`` after the last occurrence of ``marker``.</doc>
+<arguments>
+<arg>${user}</arg>
+<arg>"</arg>
+</arguments>
+<assign>
+<var>${user_added}</var>
+</assign>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Arguments: [ '{"username":"anisha' | '"' ]</msg>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Return: 'anisha'</msg>
+<msg timestamp="20181001 16:18:15.386" level="INFO">${user_added} = anisha</msg>
+<status status="PASS" endtime="20181001 16:18:15.386" starttime="20181001 16:18:15.386"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Adding a User Account"</arg>
+</arguments>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Arguments: [ '"Adding a User Account"' ]</msg>
+<msg timestamp="20181001 16:18:15.386" level="INFO">"Adding a User Account"</msg>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:15.386" starttime="20181001 16:18:15.386"></status>
+</kw>
+<kw name="Restapi Post Method" library="RestAPILibrary">
+<arguments>
+<arg>${rest_uri_accounts}</arg>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+<arg>${body}</arg>
+<arg>${auth_token}</arg>
+</arguments>
+<assign>
+<var>${res}</var>
+<var>${res_code}</var>
+</assign>
+<msg timestamp="20181001 16:18:15.386" level="TRACE">Arguments: [ 'https://10.20.90.232/redfish/v1/AccountService/Accounts' | 'admin' | '1234567!' | '{"username":"anisha","password":"superman","email":"superman@krypton.com","chkenable":true,"frpasschk":true,"rolename":"manager","temperature":1}' | b'265010889' ]</msg>
+<msg timestamp="20181001 16:18:15.386" level="DEBUG">Starting new HTTPS connection (1): 10.20.90.232:443</msg>
+<msg timestamp="20181001 16:18:16.988" level="DEBUG">https://10.20.90.232:443 "POST /redfish/v1/AccountService/Accounts HTTP/1.1" 200 88</msg>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Return: [{'Description': 'user addedanisha', 'Response': 'Resource created', 'Respose code': 201}, &lt;Response [200]&gt;]</msg>
+<msg timestamp="20181001 16:18:17.003" level="INFO">${res} = {u'Respose code': 201, u'Response': u'Resource created', u'Description': u'user addedanisha'}</msg>
+<msg timestamp="20181001 16:18:17.003" level="INFO">${res_code} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20181001 16:18:17.003" starttime="20181001 16:18:15.386"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${res_code}</arg>
+<arg>&lt;Response [200]&gt;</arg>
+</arguments>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Arguments: [ &lt;Response [200]&gt; | '&lt;Response [200]&gt;' ]</msg>
+<msg timestamp="20181001 16:18:17.003" level="INFO">Argument types are:
+&lt;class 'requests.models.Response'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:17.003" starttime="20181001 16:18:17.003"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>Description</arg>
+</arguments>
+<assign>
+<var>${descr}</var>
+</assign>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Arguments: [ {'Description': 'user addedanisha', 'Response': 'Resource created', 'Respose code': 201} | 'Description' ]</msg>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Return: 'user addedanisha'</msg>
+<msg timestamp="20181001 16:18:17.003" level="INFO">${descr} = user addedanisha</msg>
+<status status="PASS" endtime="20181001 16:18:17.003" starttime="20181001 16:18:17.003"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${descr}</arg>
+<arg>user added${user_added}</arg>
+</arguments>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Arguments: [ 'user addedanisha' | 'user addedanisha' ]</msg>
+<msg timestamp="20181001 16:18:17.003" level="DEBUG">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:17.003" starttime="20181001 16:18:17.003"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Verifying If User is added"</arg>
+</arguments>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Arguments: [ '"Verifying If User is added"' ]</msg>
+<msg timestamp="20181001 16:18:17.003" level="INFO">"Verifying If User is added"</msg>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:17.003" starttime="20181001 16:18:17.003"></status>
+</kw>
+<kw name="Restapi Get Method" library="RestAPILibrary">
+<arguments>
+<arg>${rest_uri_accounts}/${user_added}</arg>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<assign>
+<var>${res}</var>
+<var>${res_code}</var>
+</assign>
+<msg timestamp="20181001 16:18:17.003" level="TRACE">Arguments: [ 'https://10.20.90.232/redfish/v1/AccountService/Accounts/anisha' | 'admin' | '1234567!' ]</msg>
+<msg timestamp="20181001 16:18:17.003" level="DEBUG">Starting new HTTPS connection (1): 10.20.90.232:443</msg>
+<msg timestamp="20181001 16:18:18.938" level="DEBUG">https://10.20.90.232:443 "GET /redfish/v1/AccountService/Accounts/anisha HTTP/1.1" 200 544</msg>
+<msg timestamp="20181001 16:18:18.938" level="TRACE">Return: [{'@Redfish.Copyright': 'Copyright 2014-2015 Distributed Management Task Force, Inc. (DMTF). All rights reserved.',
+  '@odata.context': '/redfish/v1/$metadata#AccountService/Members/Accounts/Members/$entity',
+  '@odata.id': '/redfish/v1/AccountService/Accounts/anisha',
+  '@odata.type': '#ManagerAccount.1.0.0.ManagerAccount',
+  'Description': 'User Account',
+  'Enabled': True,
+  'Id': 'anisha',
+  'Links': {'Role': {'@data.id': '/redfish/v1/AccountService/Roles/manager'}},
+  'Locked': False,
+  'Name': 'User Account',
+  'RoleId': 'manager',
+  'Username': 'anisha'},
+ &lt;Response [200]&gt;]</msg>
+<msg timestamp="20181001 16:18:18.938" level="INFO">${res} = {u'@odata.type': u'#ManagerAccount.1.0.0.ManagerAccount', u'Username': u'anisha', u'Locked': False, u'Description': u'User Account', u'Links': {u'Role': {u'@data.id': u'/redfish/v1/AccountService/Role...</msg>
+<msg timestamp="20181001 16:18:18.938" level="INFO">${res_code} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20181001 16:18:18.938" starttime="20181001 16:18:17.003"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${res_code}</arg>
+<arg>&lt;Response [200]&gt;</arg>
+</arguments>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Arguments: [ &lt;Response [200]&gt; | '&lt;Response [200]&gt;' ]</msg>
+<msg timestamp="20181001 16:18:18.954" level="INFO">Argument types are:
+&lt;class 'requests.models.Response'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:18.954" starttime="20181001 16:18:18.938"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Arguments: [ {'@Redfish.Copyright': 'Copyright 2014-2015 Distributed Management Task Force, Inc. (DMTF). All rights reserved.',
+ '@odata.context': '/redfish/v1/$metadata#AccountService/Members/Accounts/Members/$entity',
+ '@odata.id': '/redfish/v1/AccountService/Accounts/anisha',
+ '@odata.type': '#ManagerAccount.1.0.0.ManagerAccount',
+ 'Description': 'User Account',
+ 'Enabled': True,
+ 'Id': 'anisha',
+ 'Links': {'Role': {'@data.id': '/redfish/v1/AccountService/Roles/manager'}},
+ 'Locked': False,
+ 'Name': 'User Account',
+ 'RoleId': 'manager',
+ 'Username': 'anisha'} ]</msg>
+<msg timestamp="20181001 16:18:18.954" level="INFO">{u'@odata.type': u'#ManagerAccount.1.0.0.ManagerAccount', u'Username': u'anisha', u'Locked': False, u'Description': u'User Account', u'Links': {u'Role': {u'@data.id': u'/redfish/v1/AccountService/Roles/manager'}}, u'RoleId': u'manager', u'Enabled': True, u'@odata.id': u'/redfish/v1/AccountService/Accounts/anisha', u'@odata.context': u'/redfish/v1/$metadata#AccountService/Members/Accounts/Members/$entity', u'@Redfish.Copyright': u'Copyright 2014-2015 Distributed Management Task Force, Inc. (DMTF). All rights reserved.', u'Id': u'anisha', u'Name': u'User Account'}</msg>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:18.954" starttime="20181001 16:18:18.954"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>Id</arg>
+</arguments>
+<assign>
+<var>${user_id}</var>
+</assign>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Arguments: [ {'@Redfish.Copyright': 'Copyright 2014-2015 Distributed Management Task Force, Inc. (DMTF). All rights reserved.',
+ '@odata.context': '/redfish/v1/$metadata#AccountService/Members/Accounts/Members/$entity',
+ '@odata.id': '/redfish/v1/AccountService/Accounts/anisha',
+ '@odata.type': '#ManagerAccount.1.0.0.ManagerAccount',
+ 'Description': 'User Account',
+ 'Enabled': True,
+ 'Id': 'anisha',
+ 'Links': {'Role': {'@data.id': '/redfish/v1/AccountService/Roles/manager'}},
+ 'Locked': False,
+ 'Name': 'User Account',
+ 'RoleId': 'manager',
+ 'Username': 'anisha'} | 'Id' ]</msg>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Return: 'anisha'</msg>
+<msg timestamp="20181001 16:18:18.954" level="INFO">${user_id} = anisha</msg>
+<status status="PASS" endtime="20181001 16:18:18.954" starttime="20181001 16:18:18.954"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${user_added}</arg>
+<arg>${user_id}</arg>
+</arguments>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Arguments: [ 'anisha' | 'anisha' ]</msg>
+<msg timestamp="20181001 16:18:18.954" level="DEBUG">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20181001 16:18:18.954" starttime="20181001 16:18:18.954"></status>
+</kw>
+<doc>Test Case to To Add An Account Using POST Request</doc>
+<tags>
+<tag>Accounts</tag>
+<tag>Anisha</tag>
+<tag>Full</tag>
+<tag>REST</tag>
+<tag>SmokeTest</tag>
+</tags>
+<status status="PASS" endtime="20181001 16:18:18.954" critical="yes" starttime="20181001 16:18:15.386"></status>
+</test>
+<test id="s1-t3" name="TC REST 03: Testing POST Request for Outlet Control">
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>{"OutletNumber": 2,"StartupState": "off","Outletname": "Out1","OnDelay": 1,"OffDelay": 2,"RebootDelay": 3,"OutletStatus": "off"}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Arguments: [ '{"OutletNumber": 2,"StartupState": "off","Outletname": "Out1","OnDelay": 1,"OffDelay": 2,"RebootDelay": 3,"OutletStatus": "off"}' ]</msg>
+<msg timestamp="20181001 16:18:18.954" level="DEBUG">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Return: '{"OutletNumber": 2,"StartupState": "off","Outletname": "Out1","OnDelay": 1,"OffDelay": 2,"RebootDelay": 3,"OutletStatus": "off"}'</msg>
+<msg timestamp="20181001 16:18:18.954" level="INFO">${body} = {"OutletNumber": 2,"StartupState": "off","Outletname": "Out1","OnDelay": 1,"OffDelay": 2,"RebootDelay": 3,"OutletStatus": "off"}</msg>
+<status status="PASS" endtime="20181001 16:18:18.954" starttime="20181001 16:18:18.954"></status>
+</kw>
+<kw name="Restapi Post Method" library="RestAPILibrary">
+<arguments>
+<arg>${rest_uri_outlet_control}</arg>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+<arg>${body}</arg>
+<arg>${auth_token}</arg>
+</arguments>
+<assign>
+<var>${res_code}</var>
+</assign>
+<msg timestamp="20181001 16:18:18.954" level="TRACE">Arguments: [ 'https://10.20.90.232/redfish/v1/PowerDistribution/1/PowerControl/Loadsegment/1/OutletControl' | 'admin' | '1234567!' | '{"OutletNumber": 2,"StartupState": "off","Outletname": "Out1","OnDelay": 1,"OffDelay": 2,"RebootDelay": 3,"OutletStatus": "off"}' | b'265010889' ]</msg>
+<msg timestamp="20181001 16:18:18.954" level="DEBUG">Starting new HTTPS connection (1): 10.20.90.232:443</msg>
+<msg timestamp="20181001 16:18:20.426" level="DEBUG">https://10.20.90.232:443 "POST /redfish/v1/PowerDistribution/1/PowerControl/Loadsegment/1/OutletControl HTTP/1.1" 400 0</msg>
+<msg timestamp="20181001 16:18:20.492" level="FAIL">ValueError: No JSON object could be decoded</msg>
+<msg timestamp="20181001 16:18:20.492" level="DEBUG">Traceback (most recent call last):
+  File "RestAPILibrary.py", line 42, in restapi_post_method
+    json_data = json.loads(output)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 382, in raw_decode
+    raise ValueError("No JSON object could be decoded")</msg>
+<status status="FAIL" endtime="20181001 16:18:20.492" starttime="20181001 16:18:18.954"></status>
+</kw>
+<doc>Test Case to Control an Outlet Using POST Request</doc>
+<tags>
+<tag>Anisha</tag>
+<tag>Full</tag>
+<tag>Outlet</tag>
+<tag>REST</tag>
+<tag>SmokeTest</tag>
+</tags>
+<status status="FAIL" endtime="20181001 16:18:20.493" critical="yes" starttime="20181001 16:18:18.954">ValueError: No JSON object could be decoded</status>
+</test>
+<status status="FAIL" endtime="20181001 16:18:20.494" starttime="20181001 16:18:13.305"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="1" pass="0">Critical Tests</stat>
-<stat fail="1" pass="0">All Tests</stat>
+<stat fail="1" pass="2">Critical Tests</stat>
+<stat fail="1" pass="2">All Tests</stat>
 </total>
 <tag>
-<stat fail="1" pass="0">Anisha</stat>
-<stat fail="1" pass="0">Base</stat>
-<stat fail="1" pass="0">Full</stat>
-<stat fail="1" pass="0">REST</stat>
-<stat fail="1" pass="0">SmokeTest</stat>
+<stat fail="0" pass="1">Accounts</stat>
+<stat fail="1" pass="2">Anisha</stat>
+<stat fail="0" pass="1">AuthToken</stat>
+<stat fail="1" pass="2">Full</stat>
+<stat fail="1" pass="0">Outlet</stat>
+<stat fail="1" pass="2">REST</stat>
+<stat fail="1" pass="2">SmokeTest</stat>
 </tag>
 <suite>
-<stat fail="1" id="s1" name="Rest POST Method" pass="0">Rest POST Method</stat>
+<stat fail="1" id="s1" name="Rest POST Method" pass="2">Rest POST Method</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20180910 19:30:38.559" level="ERROR">Error in file 'F:\Automation\Automation\src\rest\Rest_POST_Method.txt': Importing test library 'RestAPILibrary' failed: IndentationError: unexpected indent (RestAPILibrary.py, line 64)
-Traceback (most recent call last):
-  None
-PYTHONPATH:
-  C:\Python27
-  C:\WINDOWS\SYSTEM32\python27.zip
-  C:\Python27\DLLs
-  C:\Python27\lib
-  C:\Python27\lib\plat-win
-  C:\Python27\lib\lib-tk
-  C:\Python27\lib\site-packages</msg>
 </errors>
 </robot>

@@ -26,21 +26,46 @@ def restapi_get_method(uri, usrname, passwd):
     output = get_reqst.content
     json_data = json.loads(output)
     return [json_data, get_reqst]
+	
 
 #POST Method: Definition for POST Method, Returns output data
-def restapi_post_method(uri, usrname, passwd, data):
+def restapi_post_method(uri, usrname, passwd, data, auth_token):
+    headers = {'Content-Type':'application/json','Accept':'application/json'+"'X-Auth-Token':'auth_token'"}
+    username = usrname
+    password = passwd
+    url = uri
+    ucpAuth = requests.auth.HTTPBasicAuth(username, password)
+    post_reqst = requests.post(url, verify=False, data=data, auth=(username, password), headers=headers)
+    #resp = reqst.post(url, verify=False, data=data, auth=ucpAuth, headers=headers)
+    output = post_reqst.content
+    response = post_reqst.headers
+    json_data = json.loads(output)
+    return [json_data, post_reqst]
+	
+#POST Method: Definition for Session Creation, Returns X-Auth-Token
+def restapi_auth_token(uri, usrname, passwd, data):
     headers = {'Content-Type':'application/json','Accept':'application/json'}
     username = usrname
     password = passwd
     url = uri
     ucpAuth = requests.auth.HTTPBasicAuth(username, password)
-    #resp = requests.post(url, verify=False, data=data, auth=(username, password), headers=headers)
-    resp = reqst.post(url, verify=False, data=data, auth=(username, password), headers=headers)
-    response = resp.headers
-    #json_data = json.loads(response)
-    print (response)
-    #print (response.headers)
-    return response
+    post_reqst = requests.post(url, verify=False, data=data, auth=(username, password), headers=headers)
+    output = post_reqst.content
+    response = post_reqst.headers
+    return [response, post_reqst]
+
+#DELETE Method: Definition for DELETE Method, Deletes the data
+def restapi_delete_method(uri, usrname, passwd):
+    headers = {'Content-Type':'application/json','Accept':'application/json'}
+    username = usrname
+    password = passwd
+    url = uri
+    ucpAuth = requests.auth.HTTPBasicAuth(username, password)
+    del_reqst = requests.delete(url, verify=False, auth=(username, password), headers=headers)
+    output = del_reqst.content
+    response = del_reqst.headers
+    json_data = json.loads(output)
+    return [json_data, del_reqst]
 
 #Comment following lines to run from RobotFramework
 
@@ -48,30 +73,12 @@ def restapi_post_method(uri, usrname, passwd, data):
 #print (result)
 #print (sys.argv[1], sys.argv[2], sys.argv[3])
 
-#Build a request Body for Session Creation
-    #session_data = {
-    #}
-    #session_data["username"]=username
-    #session_data["password"]=password
-    #session_data = json.dumps(session_data)
-    
-#Definition for Create Session for POST method, Returns output data
-def create_session(url, username, password):
-    headers = {'Content-Type':'application/json','Accept':'application/json'}
-    #username = usrname
-    #password = passwd
-    #url = uri
-	session_data = {
-    session_data["username"]=username
-    session_data["password"]=password
-	}
-    session_data = json.dumps(session_data)
-	return session_data
-    ucpAuth = requests.auth.HTTPBasicAuth(username, password)
-    #resp = requests.post(url, verify=False, data=session_data, auth=(username, password), headers=headers)
-    resp = reqst.post(url, verify=False, data=session_data, auth=(username, password), headers=headers)
-    response = resp.headers
-    #json_data = json.loads(response)
-    print (response)
-    #print (response.headers)
-    return response
+#  Build a request Body for Session Creation
+#session_data = {
+#}
+#session_data["username"]="sys.argv[2]"
+#session_data["password"]="sys.argv[3]"
+#session_data = json.dumps(session_data)
+
+#post_session = restapi_post_method(sys.argv[1], sys.argv[2], sys.argv[3], session_data)
+#print (post_session)
