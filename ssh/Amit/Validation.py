@@ -99,12 +99,14 @@ def putty_check():
                     #print("NOT ABLE TO LOCATE THE VALUE")
             count_pass=0
             for i in range(0,cmd.shape[0]):
-                if(cmd.iloc[i,1]==cmd.iloc[i,2].lstrip(" ")):
-                    cmd.iloc[i,3]="PASS"
-                    count_pass=count_pass+1
-                else:
+                try:
+                    if(cmd.iloc[i,1]==cmd.iloc[i,2].lstrip(" ")):
+                        cmd.iloc[i,3]="PASS"
+                        count_pass=count_pass+1
+                    else:
+                        cmd.iloc[i,3]="FAIL"
+                except:
                     cmd.iloc[i,3]="FAIL"
-                    
                     
             cmd.iloc[5,9]=i+1
             cmd.iloc[5,10]=count_pass
