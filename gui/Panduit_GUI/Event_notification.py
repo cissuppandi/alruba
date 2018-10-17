@@ -1,8 +1,18 @@
 import Login
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
+import File_Creation
 def event_notification(ip):
-                Login.login(ip)
+                driver=Login.login(ip)
+                ##output=File_Creation.file_create() 
                 print("#######################EVENT NOTIFICATION#############")
-                output.write("\n#######################EVENT NOTIFICATION#############")
+                #output.write("\n#######################EVENT NOTIFICATION#############")
                 se=driver.find_elements_by_tag_name("svg")
                 se[4].click()
                 time.sleep(1)
@@ -49,10 +59,11 @@ def event_notification(ip):
                         m[2].click()        
                         sys_count=2
                 time.sleep(1)
-                output.close()
-                return
+                #output.close()
+                return driver
 def event_notofication_verify(ip):
-                Login.login(ip)
+                driver=Login.login(ip)
+                #output=File_Creation.file_create() 
                 se=driver.find_elements_by_tag_name("svg")
                 se[4].click()
                 time.sleep(1)                
@@ -63,21 +74,21 @@ def event_notofication_verify(ip):
                 sys=driver.find_element_by_name("allSyslog")
                 if(email.is_selected()==True):
                         print("SNMP_EMAIL IS ENABLE")
-                        output.write("\nSNMP_EMAIL IS ENABLE")
+                        #output.write("\nSNMP_EMAIL IS ENABLE")
                 else:
                      print("SNMP_EMAIL IS DISABLED")
-                     output.write("\nSNMP_EMAIL IS DISABLED")
+                     #output.write("\nSNMP_EMAIL IS DISABLED")
                 if(snmp.is_selected()==True):
                         print("SNMP_TRAP IS ENABLED")
-                        output.write("\nSNMP_TRAP IS ENABLED")
+                        #output.write("\nSNMP_TRAP IS ENABLED")
                 else:
                      print("SNMP_TRAP IS DISABLED")
-                     output.write("\nSNMP_TRAP IS DISABLED")
+                     #output.write("\nSNMP_TRAP IS DISABLED")
                 if(sys.is_selected()==True):
                         print("SYSLOG IS ENABLED")
-                        output.write("\nSYSLOG IS ENABLED")
+                        #output.write("\nSYSLOG IS ENABLED")
                 else:
                      print("SYSLOG IS DISABLED")
-                     output.write("\nSYSLOG IS DISABLED")
-                output.close()
-                return 
+                     #output.write("\nSYSLOG IS DISABLED")
+                #output.close()
+                return driver

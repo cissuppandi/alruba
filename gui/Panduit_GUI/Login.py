@@ -1,9 +1,20 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
 import File_Creation
-ip=raw_input("Enter the IP address of the PDU")
+#ip=raw_input("Enter the IP address of the PDU")
 def login(ip):
     #########OPENING WEBROWSER WITH WEBDRIVER#######
-                print("#########OPENING WEBROWSER WITH WEBDRIVER#######")        
+                print("#########OPENING WEBROWSER WITH WEBDRIVER#######")
+                global driver
                 driver = webdriver.Chrome()
+                global output
+                #output=File_Creation.file_create()
                 driver.get(ip)
                 time.sleep(1)
                 ##############LOGIN THROUGH WEBDRIVER##########
@@ -28,4 +39,4 @@ def login(ip):
                 except:
                         print("LOGGED IN SUCCESFULLY")
                         time.sleep(4)
-                return 
+                return driver

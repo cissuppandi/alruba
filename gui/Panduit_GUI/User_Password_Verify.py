@@ -1,6 +1,16 @@
 import Login
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
+import File_Creation
 def pass_policy_check():
-                Login.login(ip)
+                driver=Login.login(ip)
+                #=File_Creation.file_create()
                 driver.find_element_by_xpath(".//*[contains(text(), 'admin')]").click()
                 time.sleep(1)
                 driver.find_element_by_xpath(".//*[contains(text(), 'User Accounts')]").click()      
@@ -46,12 +56,12 @@ def pass_policy_check():
                         time.sleep(1)
                         driver.find_element_by_xpath(".//*[contains(text(), 'Log Out')]").click()
                         print("VERYFYING WITH THE DIFFERENT USERNAME AND PASSWORD COMBINATION")
-                        output.write("\nVERYFYING WITH THE DIFFERENT USERNAME AND PASSWORD COMBINATION")
+                        #.write("\nVERYFYING WITH THE DIFFERENT USERNAME AND PASSWORD COMBINATION")
                         for i in range(5):
                                 time.sleep(3)
                                 username1,password1=password_checking(i)                
                                 print("USERNAME:{},PASSWORD:{}".format(username,password))
-                                output.write("\nUSERNAME:{},PASSWORD:{}".format(username,password))
+                                #.write("\nUSERNAME:{},PASSWORD:{}".format(username,password))
                                 time.sleep(3)
                                 username=driver.find_element_by_name("username")
                                 username.clear()
@@ -72,7 +82,7 @@ def pass_policy_check():
                                       a=driver.find_elements_by_tag_name("span")
                                       if(str(a[6].text)=="Invalid Username or Password"):
                                               print("SUCCESS!!PASSWORD IS NOT WORKING")
-                                              output.write("\nSUCCESS!!PASSWORD IS NOT WORKING")
+                                              #.write("\nSUCCESS!!PASSWORD IS NOT WORKING")
                                       elif(str(a[6].text)=="User is blocked, Please try after some time"):
                                               print("USER BLOCKING SUCCESFULLY DONE\n WAITING FOR 1 MIN\n..PLEASE WAIT")                              
                                               import sys
@@ -83,17 +93,17 @@ def pass_policy_check():
                                                        time.sleep(1)
                                               Login.login(ip)
                                               print("OPERATION IS SUCCESFULLL")
-                                              output.write("\nOPERATION IS SUCCESFULLL")
+                                              #.write("\nOPERATION IS SUCCESFULLL")
                                       else:
                                                 print("ERROR!!!!SOMETHING IS WRONG...EXTING FROM THE SCRIPT.\n..PLEASE RUN AGIAN")
-                                                output.write("\nERROR!!!!SOMETHING IS WRONG...EXTING FROM THE SCRIPT.\n..PLEASE RUN AGIAN")
-                                                output.close()
+                                                #.write("\nERROR!!!!SOMETHING IS WRONG...EXTING FROM THE SCRIPT.\n..PLEASE RUN AGIAN")
+                                                #.close()
                                                 sys.exit()
                                               
                                 except:
                                         print("SOMETHING WRONG...EXITING FROM THE SCRIPT")
-                                        output.write("\nSOMETHING WRONG...EXITING FROM THE SCRIPT")
-                                        output.close()
+                                        #.write("\nSOMETHING WRONG...EXITING FROM THE SCRIPT")
+                                        #.close()
                                         sys.exit()
                         
                 else:
@@ -108,5 +118,5 @@ def pass_policy_check():
                         driver.find_element_by_xpath(".//*[contains(text(), 'admin')]").click()
                         time.sleep(2)
                         driver.find_element_by_xpath(".//*[contains(text(), 'Log Out')]").click()
-                output.close()
-                return
+                #.close()
+                return driver

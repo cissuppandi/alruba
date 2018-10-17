@@ -1,8 +1,18 @@
 import Login
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
+import File_Creation
 def Threshold_dump(ip):
-                Login.login(ip)
+                driver=Login.login(ip)
+                #=File_Creation.file_create()
                 print("##########################PDU THRESHOLDS##############")
-                output.write("\n##########################PDU THRESHOLDS##############")
+                #.write("\n##########################PDU THRESHOLDS##############")
                 se=driver.find_elements_by_tag_name("svg")
                 se[4].click()
                 time.sleep(1)
@@ -56,7 +66,7 @@ def Threshold_dump(ip):
                 for i in range(0,10,2):
                         time.sleep(1)
                         print(vd[i].text+"\t"+vd[i+1].text)
-                        output.write(vd[i].text+"\t"+vd[i+1].text)
+                        #.write(vd[i].text+"\t"+vd[i+1].text)
                 time.sleep(2)
                 print("VERIFYING ENERGY TAB")
                 lb=driver.find_elements_by_tag_name("label")
@@ -77,34 +87,34 @@ def Threshold_dump(ip):
                 for i in range(2,6,2):
                         time.sleep(1)
                         print(vd[i].text+"\t"+vd[i+1].text)
-                        output.write(vd[i].text+"\t"+vd[i+1].text)
+                        #.write(vd[i].text+"\t"+vd[i+1].text)
                 time.sleep(1)
                 print("CHECKING THE PHASE TAB")
                 lb[2].click()
                 time.sleep(2)
                 vd=driver.find_elements_by_tag_name("th")
                 print(vd[0].text+"  "+vd[1].text+"  "+vd[2].text+" "+vd[3].text+" "+vd[4].text+" "+vd[5].text)
-                output.write(vd[0].text+"  "+vd[1].text+"  "+vd[2].text+" "+vd[3].text+" "+vd[4].text+" "+vd[5].text)
+                #.write(vd[0].text+"  "+vd[1].text+"  "+vd[2].text+" "+vd[3].text+" "+vd[4].text+" "+vd[5].text)
                 time.sleep(1)
                 vd=driver.find_elements_by_tag_name("td")
                 for i in range(2,22,7):
                         time.sleep(1)
                         print(vd[i].text+"  "+vd[i+1].text+"  "+vd[i+2].text+"  "+vd[i+3].text+"  "+vd[i+4].text+"  "+vd[i+5].text)
-                        output.write(vd[i].text+"  "+vd[i+1].text+"  "+vd[i+2].text+"  "+vd[i+3].text+"  "+vd[i+4].text+"  "+vd[i+5].text)
+                        #.write(vd[i].text+"  "+vd[i+1].text+"  "+vd[i+2].text+"  "+vd[i+3].text+"  "+vd[i+4].text+"  "+vd[i+5].text)
                 time.sleep(2)
                 vd=driver.find_elements_by_tag_name("th")
                 print(vd[0].text+"  "+vd[1].text+"  "+vd[2].text+"  "+vd[3].text+" "+vd[4].text+" "+vd[5].text)
-                output.write(vd[0].text+"  "+vd[1].text+"  "+vd[2].text+"  "+vd[3].text+" "+vd[4].text+" "+vd[5].text)
+                #.write(vd[0].text+"  "+vd[1].text+"  "+vd[2].text+"  "+vd[3].text+" "+vd[4].text+" "+vd[5].text)
                 time.sleep(2)
                 vd=driver.find_elements_by_tag_name("td")
                 for i in range(22,41,7):
                         time.sleep(1)
                         print(vd[i].text+"\t"+vd[i+1].text+"\t"+vd[i+2].text+"\t"+vd[i+3].text+"\t"+vd[i+4].text+"\t"+vd[i+5].text)
-                        output.write(vd[i].text+"\t"+vd[i+1].text+"\t"+vd[i+2].text+"\t"+vd[i+3].text+"\t"+vd[i+4].text+"\t"+vd[i+5].text)
+                        #.write(vd[i].text+"\t"+vd[i+1].text+"\t"+vd[i+2].text+"\t"+vd[i+3].text+"\t"+vd[i+4].text+"\t"+vd[i+5].text)
                 for i in range(3,len(lb)):
                         print("VERIFYING THE :{} TAB".format(lb[i].text))
-                        output.write("\nVERIFYING THE :{} TAB".format(lb[i].text))
+                        #.write("\nVERIFYING THE :{} TAB".format(lb[i].text))
                         time.sleep(2)
                         lb[i].click()
-                output.close()
-                return
+                #.close()
+                return driver

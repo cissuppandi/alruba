@@ -1,10 +1,20 @@
-import Network_Settings               
+import Network_Settings
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
+import File_Creation
 def rest_api_enable(ip):
-                Network_Settings.network_settings_change(ip)
+                driver=Network_Settings.network_settings_change(ip)
+                ##output=File_Creation.file_create()
                 print("##########ENABLING REST API FEATURE############")
-                output.write("\n##########ENABLING REST API FEATURE############")
+                ##output.write("\n##########ENABLING REST API FEATURE############")
                 print("Enabling WEB/RESTapi Access Configuration")
-                output.write("\nEnabling WEB/RESTapi Access Configuration")
+                #output.write("\nEnabling WEB/RESTapi Access Configuration")
                 rest=driver.find_elements_by_tag_name("a")
                 rest[2].click()
                 time.sleep(1)
@@ -23,19 +33,20 @@ def rest_api_enable(ip):
                                  sys.stdout.flush()
                                  time.sleep(1)
                 print("\n\nLOGGiNG AGAIN TO VERIFY")
-                output.write("\n\n\nLOGGING AGAIN TO VERIFY")                           
+                #output.write("\n\n\nLOGGING AGAIN TO VERIFY")                           
                 Network_Settings.network_settings_change(ip)
-                output.close()
+                #output.close()
                 return
 def rest_api_check(ip):
-                Network_Settings.network_settings_change(ip)                
+                driver=Network_Settings.network_settings_change(ip)
+                #output=File_Creation.file_create()
                 en=driver.find_elements_by_tag_name("svg")
                 
                 if(str(en[13].get_attribute("aria-label"))=="checkmark"):
                           print("SUCCESS!!!"+"\n"+"RESTapi Access is Enabled")
-                          output.write("\nSUCCESS!!!"+"\n"+"RESTapi Access is Enabled")
+                          #output.write("\nSUCCESS!!!"+"\n"+"RESTapi Access is Enabled")
                 else:
                     print("ERROR!!!!"+"\n"+"RESTapi Access  is Disabled")
-                    output.write("\nERROR!!!!"+"\n"+"RESTapi Access  is Disabled")
-                output.close()
+                    #output.write("\nERROR!!!!"+"\n"+"RESTapi Access  is Disabled")
+                #output.close()
                 return 

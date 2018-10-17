@@ -1,8 +1,18 @@
 import Login
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
+import File_Creation
 def user_settings_addition(ip):
-                Login.login(ip)
+                driver=Login.login(ip)
+                #=File_Creation.file_create()
                 print("##################USER SETTINGS###########")
-                output.write("\n##################USER SETTINGS###########")
+                #.write("\n##################USER SETTINGS###########")
                 print("VERYFYING USER SETTINGS")
                 driver.find_element_by_xpath(".//*[contains(text(), 'admin')]").click()
                 time.sleep(1)
@@ -34,8 +44,8 @@ def user_settings_addition(ip):
                 time.sleep(3)
                 if(str(driver.find_element_by_tag_name("p").text)=="User add failed, Please try again later!!"   ):
                         print("ERROR USER NOT CREATED..EXITING FROM THE SCRIPT\n PLEASE DELETE ANY OLD USER AND TRY AGAIN")
-                        output.write("\nERROR USER NOT CREATED..EXITING FROM THE SCRIPT\n PLEASE DELETE ANY OLD USER AND TRY AGAIN")
-                        output.close()
+                        #.write("\nERROR USER NOT CREATED..EXITING FROM THE SCRIPT\n PLEASE DELETE ANY OLD USER AND TRY AGAIN")
+                        #.close()
                         sys.exit()
                 else:
                         driver.find_element_by_xpath(".//*[contains(text(),'OK')]").click()
@@ -49,7 +59,7 @@ def user_settings_addition(ip):
                         a=driver.find_elements_by_tag_name("span")
                         if(str(a[1].text)=="Please change default Password for more Security Purpose"):
                                 print("USER HAS SUCCSEFULLY CREATED AND NEED TO CHANGE THE DEFAULT PASSWORD")
-                                output.write("\nUSER HAS SUCCSEFULLY CREATED AND NEED TO CHANGE THE DEFAULT PASSWORD")
+                                #.write("\nUSER HAS SUCCSEFULLY CREATED AND NEED TO CHANGE THE DEFAULT PASSWORD")
                                 time.sleep(3)
                                 pas=driver.find_element_by_name("c_password")
                                 pas.send_keys("123456789")
@@ -61,25 +71,26 @@ def user_settings_addition(ip):
                                 driver.find_element_by_xpath(".//*[contains(text(), 'Change Password')]").click()
                         else:
                                 print("ERROR!!!!THE USER CREATION WAS NOT SUCCESFULL")
-                                output.write("\nERROR!!!!THE USER CREATION WAS NOT SUCCESFULL")
-                        output.close()
-                        return
+                                #.write("\nERROR!!!!THE USER CREATION WAS NOT SUCCESFULL")
+                        #.close()
+                        return driver
 def user_settings_verify(ip):
-                Login.login(ip)
+                driver=Login.login(ip)
+                #=File_Creation.file_create()
                 ################VERIFYING ROLE OF THE USER#######
                 print("################VERIFYING ROLE OF THE USER#######")
-                output.write("\n################VERIFYING ROLE OF THE USER#######")
+                #.write("\n################VERIFYING ROLE OF THE USER#######")
                 print("CHECKING THE PRIVILAGE OF THE USER")
-                output.write("\nCHECKING THE PRIVILAGE OF THE USER")
+                #.write("\nCHECKING THE PRIVILAGE OF THE USER")
                 time.sleep(3)
                 try:
                       a=driver.find_elements_by_tag_name("svg")
                       a[4].click()
                       print("THE USER HAS ADMINISTRATOR PRIVILAGE")
-                      output.write("\nTHE USER HAS ADMINISTRATOR PRIVILAGE")
+                      #.write("\nTHE USER HAS ADMINISTRATOR PRIVILAGE")
                 except:
                       print("THE ROLE OF THE USER IS LIMITED TO **USER**")
-                      output.write("\nTHE ROLE OF THE USER IS LIMITED TO **USER**")
+                      #.write("\nTHE ROLE OF THE USER IS LIMITED TO **USER**")
                 print("CHANGING THE ROLE OF THE USER")
                 driver.find_element_by_xpath(".//*[contains(text(), 'TEST')]").click()
                 time.sleep(1)
@@ -114,11 +125,11 @@ def user_settings_verify(ip):
                        a=driver.find_elements_by_tag_name("svg")
                        a[4].click()
                        print("THE USER HAS ADMINISTRATOR PRIVILAGE.ROLE CHANGED SUCCESFULLY")
-                       output.write("\nTHE USER HAS ADMINISTRATOR PRIVILAGE.ROLE CHANGED SUCCESFULLY")
+                       #.write("\nTHE USER HAS ADMINISTRATOR PRIVILAGE.ROLE CHANGED SUCCESFULLY")
                 except:
                       print("THE ROLE OF THE USER IS LIMITED TO **USER**")
-                      output.write("\nTHE ROLE OF THE USER IS LIMITED TO **USER**")
+                      #.write("\nTHE ROLE OF THE USER IS LIMITED TO **USER**")
                      
-                output.close()
-                return()
+                #.close()
+                return driver
                 

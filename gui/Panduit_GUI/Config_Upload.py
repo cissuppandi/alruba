@@ -1,9 +1,20 @@
-import Login.py
-def config_upload(path,ip):
+import Login
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
+import File_Creation
+def config_upload(ip):
                 #ip=raw_input("Enter the IP address of the PDU")
-                Login.login(ip)
+                global driver
+                driver=Login.login(ip)
+                #output=File_Creation.file_create()
                 print("############UPLOAD REQUIRED CONFIGURATION##########")
-                output.write("############UPLOAD REQUIRED CONFIGURATION##########")
+                #output.write("############UPLOAD REQUIRED CONFIGURATION##########")
                 se=driver.find_elements_by_tag_name("svg")
                 se[4].click()
                 part=driver.find_elements_by_tag_name("a")
@@ -27,5 +38,5 @@ def config_upload(path,ip):
                         sys.stdout.flush()                                
                         time.sleep(1)
                 Login.login(ip)
-                output.close()
-                return 
+                #output.close()
+                return driver

@@ -1,6 +1,16 @@
 import Login
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
+import File_Creation
 def session_dump(ip):
-                Login.login(ip)
+                driver=Login.login(ip)
+                #=File_Creation.file_create()
                 print("######################SYSTEM MANAGEMENT#######################")
                 se=driver.find_elements_by_tag_name("svg")
                 se[4].click()
@@ -93,11 +103,12 @@ def session_dump(ip):
                 driver.find_element_by_xpath(    ".//*[contains(text(), 'Save')]").click()
                 time.sleep(1)
                 driver.find_element_by_xpath(    ".//*[contains(text(), 'OK')]").click()
-                output.close()
-                return
+                #.close()
+                return driver
 def session_verify(ip):
                 print("VALIDATING THE DATA FROM THE PAGE")
-                Login.login(ip)
+                driver=Login.login(ip)
+                #=File_Creation.file_create()
                 se=driver.find_elements_by_tag_name("svg")
                 se[4].click()
                 #time.sleep(1)                
@@ -106,6 +117,6 @@ def session_verify(ip):
                 for i in range(0,26,2):
                         time.sleep(1)
                         print(vd[i].text+"\t"+vd[i+1].text)
-                        output.write(vd[i].text+"\t"+vd[i+1].text)
-                output.close()
-                return
+                        #.write(vd[i].text+"\t"+vd[i+1].text)
+                #.close()
+                return driver

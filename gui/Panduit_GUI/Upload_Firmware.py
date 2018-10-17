@@ -1,10 +1,20 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+import time
+import sys
+import datetime
+import os
+import getpass
 import Login
 import Identification_Dump
+import File_Creation
 def upload_firmware(ip):
-                Login.login(ip)
+                driver=Login.login(ip)
+                #=File_Creation.file_create()
     ###########################UPLOAD FIRMWARE####################################
                 print("###########################UPLOAD FIRMWARE####################################")
-                output.write("\n###########################UPLOAD FIRMWARE####################################")
+                #.write("\n###########################UPLOAD FIRMWARE####################################")
                 print("PLEASE KEEP THE PANDUIT FIRMWARE IN THE SAME DIRECTORY")
                 se=driver.find_elements_by_tag_name("svg")
                 se[4].click()
@@ -35,4 +45,4 @@ def upload_firmware(ip):
                 driver.find_element_by_xpath(".//*[contains(text(), 'admin')]").click()
                 time.sleep(2)
                 driver.find_element_by_xpath(".//*[contains(text(), 'Log Out')]").click()
-                return
+                return driver
